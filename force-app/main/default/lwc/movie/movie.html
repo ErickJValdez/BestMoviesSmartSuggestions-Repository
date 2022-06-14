@@ -1,0 +1,12 @@
+<template>
+    <template if:true={movie}>
+        <lightning-layout vertical-align="center">
+            <lightning-layout-item padding="around-small">
+                <img src={movie.Image_URL__c} alt="Movie picture" />
+                <p>{movie.Name}</p>
+                <p>{movie.Global_Score__c}</p>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+    <template if:false={movie}><p>No movie data available.</p></template>
+</template>
