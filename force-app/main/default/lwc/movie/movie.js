@@ -4,5 +4,8 @@ export default class Movie extends LightningElement {
     
 @api movie;
 
+movieClick() {
+  
+}
 }
 

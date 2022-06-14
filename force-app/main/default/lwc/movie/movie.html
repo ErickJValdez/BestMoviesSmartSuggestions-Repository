@@ -2,9 +2,11 @@
     <template if:true={movie}>
         <lightning-layout vertical-align="center">
             <lightning-layout-item padding="around-small">
-                <img src={movie.Image_URL__c} alt="Movie picture" />
-                <p>{movie.Name}</p>
-                <p>{movie.Global_Score__c}</p>
+                <a onclick={movieClick}>
+                 <img src={movie.Image_URL__c} alt="Movie picture" />
+                 <p>{movie.Name}</p>
+                 <p>{movie.Global_Score__c}</p>
+                </a>
             </lightning-layout-item>
         </lightning-layout>
     </template>
