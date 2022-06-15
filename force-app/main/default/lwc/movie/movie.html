@@ -2,13 +2,18 @@
     <template if:true={movie}>
         <lightning-layout vertical-align="center">
             <lightning-layout-item padding="around-small">
-                <a onclick={movieClick}>
+                <a onclick={handleMovieClickShowModal}>
                  <img src={movie.Image_URL__c} alt="Movie picture" />
                  <p>{movie.Name}</p>
                  <p>{movie.Global_Score__c}</p>
                 </a>
             </lightning-layout-item>
         </lightning-layout>
+        <lightning-card title="MiscModal" icon-name="custom:custom19">
+            <div class="slds-var-m-around_medium">
+              <c-modal-Watch-Movie> </c-modal-Watch-Movie>
+            </div>
+          </lightning-card>
     </template>
     <template if:false={movie}><p>No movie data available.</p></template>
 </template>

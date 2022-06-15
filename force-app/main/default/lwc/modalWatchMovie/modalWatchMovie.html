@@ -1,0 +1,46 @@
+<template>
+    <template if:true={showModalWatchMovie}>
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open"
+      >
+        <div class="slds-modal__container">
+          <!-- Header Start -->
+          <header class="slds-modal__header">
+            <lightning-button-icon
+              class="slds-modal__close"
+              title="Close"
+              icon-name="utility:close"
+              icon-class="slds-button_icon-inverse"
+              onclick={handleDialogClose}
+            ></lightning-button-icon>
+          </header>
+          <!-- Header End -->
+          <div
+            class="slds-modal__content slds-p-around_medium"
+            id="modal-content-id-1"
+          >
+
+          <lightning-layout-item padding="around-small">
+            <div>
+                <img src={movieValue.Image_URL__c} alt="Movie picture" />
+            </div>
+          <div class="slds-text-align_center">
+            <h1 class="slds-text-body_regular slds-text-title_caps">{movieValue.Name}</h1>
+            <p class="slds-text-body_regular">Score: {movieValue.Global_Score__c}</p>
+            <p class="slds-text-body_regular">Ranking: {movieValue.Ranking__c}</p>
+            <p class="slds-text-body_regular">{movieValue.Full_Summary__c}</p>
+          </div>
+           
+
+        </lightning-layout-item>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+  </template>
