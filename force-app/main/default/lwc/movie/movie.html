@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 06-15-2022
+  @last modified on  : 06-16-2022
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -12,8 +12,12 @@
                 <a onclick={handleMovieClickShowModal}>
                  <img src={movie.Image_URL__c} alt="Movie picture" />
                  <p>{movie.Name}</p>
-                 <p>{movie.Ranking__c}</p>
-                 <p>{movie.Global_Score__c}</p>
+                 <template if:true={movie.Ranking__c}>
+                 <p>Ranking: {movie.Ranking__c}</p>
+                 </template>
+                 <template if:true={movie.Global_Score__c}>
+                 <p>Global Score: {movie.Global_Score__c}</p>
+                 </template>
                 </a>
             </lightning-layout-item>
         </lightning-layout>
