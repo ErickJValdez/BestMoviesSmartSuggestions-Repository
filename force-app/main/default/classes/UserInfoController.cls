@@ -1,8 +1,11 @@
 public with sharing class UserInfoController {
 
+
+     @AuraEnabled(cacheable=true)
+     public static String getUserContactId(){
+
         String loggedUserId = UserInfo.getUserId();
 
-     public static String getUserContactId(){
              User contact = Database.query(
           'SELECT ContactId FROM User WHERE Id =: loggedUserId LIMIT 1'
         );
@@ -11,6 +14,7 @@ public with sharing class UserInfoController {
 
     }
 
+     @AuraEnabled(cacheable=true)
      public static String getUserContactAge(){
 
         String conId= UserInfoController.getUserContactId();
@@ -23,7 +27,4 @@ public with sharing class UserInfoController {
     }
 
 
-        public UserInfoController() {
-
-    }
 }
