@@ -1,4 +1,4 @@
 <aura:application extends="force:slds">
-    <c:searchBarMovies/>
+    <c:searchBarMovies1/>
 
 </aura:application>	
