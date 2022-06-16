@@ -1,13 +1,13 @@
 <template>
     <lightning-card title="TOP 10 MOVIES">
-        <div class="slds-var-m-around_medium container">
-                <template for:each={movie__c.data} for:item="movie">
-                    <c-movie
-                        class="slds-show slds-is-relative"
-                        key={movie.Id}
-                        movie={movie}
-                    ></c-movie>
-                </template>
+        <div class="slds-scrollable_x container">
+            <template for:each={movie__c.data} for:item="movie">
+                <c-movie
+                    class="slds-show slds-is-relative"
+                    key={movie.Id}
+                    movie={movie}
+                ></c-movie>
+            </template>
         </div>
     </lightning-card>
 </template>
