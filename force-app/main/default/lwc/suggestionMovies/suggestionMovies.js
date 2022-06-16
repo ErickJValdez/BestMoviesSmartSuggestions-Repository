@@ -1,7 +1,14 @@
 import { LightningElement, api, wire } from 'lwc';
-import getMovies from '@salesforce/apex/MoviesController.getMovies';
+
+import getMoviesSuggestion from '@salesforce/apex/MoviesController.getMoviesSuggestion';
+
 
 export default class SuggestionMovies extends LightningElement {
-    @wire(getMovies) Movies;
+    @wire(getMoviesSuggestion) Movies;
+
+
+
+    
+
 
 }
