@@ -17,8 +17,3 @@ public with sharing class SuggestionsController {
             return preferredGenresListOfUser;
     }
 }
-  
-
-
-  
-}

@@ -1,3 +1,10 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-15-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <template>
     <template if:true={movie}>
         <lightning-layout vertical-align="center">
@@ -5,6 +12,7 @@
                 <a onclick={handleMovieClickShowModal}>
                  <img src={movie.Image_URL__c} alt="Movie picture" />
                  <p>{movie.Name}</p>
+                 <p>{movie.Ranking__c}</p>
                  <p>{movie.Global_Score__c}</p>
                 </a>
             </lightning-layout-item>
