@@ -8,7 +8,7 @@ public class TopController {
         List<Movie__c> listresult = new List<Movie__c>();
         listresult.addAll(topMoviesList);
         if(listnum < 10){
-                List<Movie__c> topMovies = [SELECT Id,  Name, Image_URL__c, Global_Score__c, Full_Summary__c FROM Movie__c where Global_Score__c >50 NULL AND Ranking__c = NULL LIMIT 10];
+                List<Movie__c> topMovies = [SELECT Id,  Name, Image_URL__c, Global_Score__c, Full_Summary__c FROM Movie__c where Global_Score__c > 50 AND Ranking__c = NULL LIMIT 10];
                 listresult.addAll(topMovies);
             
         }    
