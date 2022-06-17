@@ -5,7 +5,7 @@ public with sharing class MoviesSearchBarController {
         String searchword = '%'+seachkey+'%';
         System.debug('===searchWord==='+searchword);
         List<Movie__c> movList = new List<Movie__c>();
-        for(Movie__c mov:[select MovieTitle from Movie__c where MovieTitle=:searchword]){
+        for(Movie__c mov:[select MovieTitle from Movie__c where MovieTitle LIKE:searchword]){
             movList.add(mov);
 
         }
