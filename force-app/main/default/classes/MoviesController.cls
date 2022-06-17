@@ -28,10 +28,7 @@ public with sharing class MoviesController {
                 'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE Global_Score__c > 0 ORDER BY Global_Score__c DESC LIMIT :list2s'
                 );
                 listres.addAll(bMovies);
-
                 }
-
-
 
         }    
             return listres;
