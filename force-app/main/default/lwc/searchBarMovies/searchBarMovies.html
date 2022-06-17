@@ -1,3 +1,22 @@
 <template>
+<<<<<<< HEAD
     <lightning-input type="text" label="Enter MovieTitle" value={movMovieTitle} onchange={handleChange}> </lightning-input>
+=======
+    <lightining-input type="text" style="width:15%;" label="Enter MovieTitle" value={movMovieTitle} onchange={handleChange}>
+    </lightining-input>
+    <table>
+        <tr>
+            <th> Movie Name</th>
+        </tr>
+        <template for:each={records} for:item="mov">
+            <tr key={mov.Id}>
+                <td>
+                    {movMovieTitle}
+                </td>
+
+            </tr>
+
+        </template>
+    </table>
+>>>>>>> 9ba4e41096e531c9741f7b80ef030eb378d023d0
 </template>
