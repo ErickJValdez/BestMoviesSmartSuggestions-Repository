@@ -1,7 +1,6 @@
-import { LightningElement, track,wire,api} from 'lwc';
-import displayMovieRecords from '@salesforce/apex/MoviesSearchBarController.displayMovieRecords';
-import Movie from '../movie/movie';
+import { LightningElement, api, track, wire } from 'lwc';
 
+import displayMovieRecords from '@salesforce/apex/MoviesSearchBarController.displayMovieRecords';
 
 export default class SearchBarMovies extends LightningElement {
     @api movMovieTitle;
@@ -9,7 +8,7 @@ export default class SearchBarMovies extends LightningElement {
     @track error;
     @api recordId;
         
-    @wire (displayConRecords,{searchkey:'$movMovieTitle'})   
+    @wire (displayMovieRecords,{searchkey:'$movMovieTitle'})   
 
     wireMovies({error,data}){
         if (data){

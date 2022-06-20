@@ -1,10 +1,12 @@
 
 public with sharing class SuggestionsController {
     
-    public static string contactId = UserInfoController.getUserContactId();
+    //public static string contactId = UserInfoController.getUserContactId();
 
 
     public static Set<Id> prefferedContactGenres(){
+        
+        String contactId = UserInfoController.getUserContactId();
                    
         List<Preferred_Genres__c> preferredGenresListOfUser = [SELECT Movie_Genre__c FROM Preferred_Genres__c WHERE Contact__c =: contactId];
         

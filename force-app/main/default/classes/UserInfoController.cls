@@ -1,7 +1,7 @@
 public with sharing class UserInfoController {
 
 
-     @AuraEnabled(cacheable=true)
+     
      public static String getUserContactId(){
 
         String loggedUserId = UserInfo.getUserId();
@@ -14,7 +14,6 @@ public with sharing class UserInfoController {
 
     }
 
-     @AuraEnabled(cacheable=true)
      public static String getUserContactAge(){
 
         String conId= UserInfoController.getUserContactId();

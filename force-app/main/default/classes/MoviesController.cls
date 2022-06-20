@@ -2,13 +2,35 @@ public with sharing class MoviesController {
    
     @AuraEnabled(cacheable=true)
     public static List<Movie__c> getMoviesSuggestion(){
+
         Set<Id> moviesIds= SuggestionsController.prefferedContactMoviesByGenres();
-
-
+        
         List<Movie__c> moviesList = Database.query(
-            'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE (ID IN: moviesIds OR Ranking__c > 2) LIMIT 10'
+            'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE ID IN: moviesIds ORDER BY Ranking__c DESC LIMIT 10'
             );
-            
-            return moviesList;
+        
+        Integer lists = moviesList.size();
+        List<Movie__c> listres = new List<Movie__c>();
+        Integer list2s = 10 - lists;
+        listres.addAll(moviesList);
+        if(lists < 10){
+            List<Movie__c> bestMovies = Database.query(
+                'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE (RANKING__C  != NULL AND (RANKING__C > 0 OR Global_Score__c > 0)) ORDER BY Ranking__c DESC LIMIT :list2s'
+                );
+
+            listres.addAll(bestMovies);
+
+                lists = lists + bestMovies.size();
+                list2s = 10 - lists;
+                
+                If(lists<10) {
+                    List<Movie__c> bMovies = Database.query(
+                'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE Global_Score__c > 0 ORDER BY Global_Score__c DESC LIMIT :list2s'
+                );
+                listres.addAll(bMovies);
+                }
+
+        }    
+            return listres;
     }
 }
