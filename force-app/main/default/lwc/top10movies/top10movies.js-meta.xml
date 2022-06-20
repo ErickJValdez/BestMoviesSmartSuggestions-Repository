@@ -8,9 +8,5 @@
         <target>lightning__HomePage</target>
         <target>lightning__Tab</target>
         <target>lightningCommunity__Page</target>
-<<<<<<< HEAD
-        <target>lightningCommunity__Default</target>
-=======
->>>>>>> f3831d32f26af8697809f99dc91f82473fb684be
       </targets>
 </LightningComponentBundle>
