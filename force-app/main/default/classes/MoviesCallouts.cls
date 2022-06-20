@@ -1,5 +1,5 @@
-public with sharing class RequestController {
-
+public class MoviesCallouts {
+    
     public static HttpResponse getMovieRaitings(String name){
         Http http = new Http();
         HttpRequest request = new HttpRequest();
