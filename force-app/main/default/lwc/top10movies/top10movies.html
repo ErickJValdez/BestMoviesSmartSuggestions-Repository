@@ -1,13 +1,25 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-17-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <template>
     <lightning-card>
         <lightning-badge label="TOP 10 MOVIES" icon-name="custom:custom11"></lightning-badge>
         <div class="slds-scrollable_x container">
+            <template if:true={isUIAccessible}>
             <template for:each={movie__c.data} for:item="movie">
                 <c-movie
                     class="slds-show slds-is-relative"
                     key={movie.Id}
                     movie={movie}
                 ></c-movie>
+            </template>
+            </template>
+            <template if:false={isUIAccesible}>
+                <h1> I am not available. </h1>
             </template>
         </div>
     </lightning-card>
