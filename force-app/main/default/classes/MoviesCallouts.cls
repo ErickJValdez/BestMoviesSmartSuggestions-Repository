@@ -13,10 +13,17 @@ public class MoviesCallouts {
         if (response.getStatusCode() == 200) {
             // Deserialize the JSON string into collections of primitive data types.
             Map<String, Object> result = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-            List<Object> ratings = (List<Object>) result.get('Ratings');
-           Map<String, Object> result2 = (Map<String, Object>) ratings.get(0);
-           System.debug(result2.get('Value'));
-                      
+            
+             String ratings1 = (String) result.get('imdbRating');
+            
+            Double va = Double.valueOf(ratings1);
+            
+          						 /* List<Object> ratings = (List<Object>) result.get('Ratings');
+         						  Map<String, Object> result2 = (Map<String, Object>) ratings.get(0);*/
+                                  
+            returnValue = va;
+            
+             System.debug(va);
         }
         return response;
      
