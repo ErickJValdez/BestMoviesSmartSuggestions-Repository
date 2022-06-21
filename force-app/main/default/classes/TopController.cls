@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 06-16-2022
+ * @last modified on  : 06-21-2022
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public class TopController {
@@ -15,7 +15,7 @@ public class TopController {
         Integer list2size = 10 - listsize;
         listresult.addAll(topMoviesList);
         if(listsize < 10){
-                String query = 'SELECT Id,  Name, Image_URL__c, Global_Score__c, Full_Summary__c FROM Movie__c where Global_Score__c > 50 AND Ranking__c = NULL order by Global_Score__c DESC LIMIT :list2size';
+                String query = 'SELECT Id,  Name, Image_URL__c, Global_Score__c, Full_Summary__c FROM Movie__c where Global_Score__c > 5 AND Ranking__c = NULL order by Global_Score__c DESC LIMIT :list2size';
                 List<Movie__c> topMovies = Database.query(query);
                 listresult.addAll(topMovies);
             
