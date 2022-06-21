@@ -1,13 +1,13 @@
 public class MoviesCallouts {
     
-    public static HttpResponse getMovieRaitings(String name){
+    public static Double getMovieRaitings(String name){
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint('http://www.omdbapi.com/?t='+name+'&apikey=ad509f2');
         request.setMethod('GET');
         System.debug('>>>>>>>'+name);
         HttpResponse response = http.send(request);
-        String returnValue;
+        Double returnValue;
        
         // If the request is successful, parse the JSON response
         if (response.getStatusCode() == 200) {
@@ -23,9 +23,9 @@ public class MoviesCallouts {
                                   
             returnValue = va;
             
-             System.debug(va);
+                                    // System.debug(va);
         }
-        return response;
+        return returnValue;
      
     }
 }
