@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 06-16-2022
+  @last modified on  : 06-22-2022
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -12,6 +12,7 @@
                 <a onclick={handleMovieClickShowModal}>
                  <img src={movie.Image_URL__c} alt="Movie picture" />
                  <p>{movie.Name}</p>
+                 <p>Rating: {movie.Rating__c}</p>
                  <template if:true={movie.Ranking__c}>
                  <p>Ranking: {movie.Ranking__c}</p>
                  </template>
