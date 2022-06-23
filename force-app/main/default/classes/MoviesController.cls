@@ -4,10 +4,10 @@ public with sharing class MoviesController {
     public static List<Movie__c> getMoviesSuggestion(){
 
         Set<Id> moviesIds= SuggestionsController.prefferedContactMoviesByGenres();
-        String queryStringUserTypeMovies = UserInfoController.getUserMoviesRate();
+        String queryStringUserTypeMovies = SuggestionsController.getUserMoviesRate();
         
         List<Movie__c> moviesList = Database.query(
-            'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE ID IN: moviesIds ORDER BY Ranking__c DESC LIMIT 10'
+            'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE ID IN: moviesIds '+queryStringUserTypeMovies+' ORDER BY Ranking__c DESC LIMIT 10'
             );
         
         Integer lists = moviesList.size();
@@ -16,7 +16,7 @@ public with sharing class MoviesController {
         listres.addAll(moviesList);
         if(lists < 10){
             List<Movie__c> bestMovies = Database.query(
-                'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE (RANKING__C  != NULL AND (RANKING__C > 0 OR Global_Score__c > 0)) ORDER BY Ranking__c DESC LIMIT :list2s'
+                'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE (RANKING__C  != NULL AND (RANKING__C > 0 OR Global_Score__c > 0)) '+queryStringUserTypeMovies+' ORDER BY Ranking__c DESC LIMIT :list2s'
                 );
 
             listres.addAll(bestMovies);
@@ -26,7 +26,7 @@ public with sharing class MoviesController {
                 
                 If(lists<10) {
                     List<Movie__c> bMovies = Database.query(
-                'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE Global_Score__c > 0 ORDER BY Global_Score__c DESC LIMIT :list2s'
+                'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE (RANKING__C  = NULL AND Global_Score__c > 0) '+queryStringUserTypeMovies+' ORDER BY Global_Score__c DESC LIMIT :list2s'
                 );
                 listres.addAll(bMovies);
                 }
@@ -34,4 +34,6 @@ public with sharing class MoviesController {
         }    
             return listres;
     }
+        
+
 }

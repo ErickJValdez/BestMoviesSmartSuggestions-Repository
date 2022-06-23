@@ -22,12 +22,44 @@ public with sharing class SuggestionsController {
     }
 
 
+    public static string getUserMoviesRate(){
+
+        Integer userAge = Integer.valueOf(UserInfoController.getUserContactAge());
+        String queryUserMovies = '';
+
+            if(userAge <= 13){
+                queryUserMovies = 'AND (Rating__c = \'Rated G\' OR Rating__c = \'Rated PG\')';
+            } else if(userAge < 30){
+                 queryUserMovies ='AND (Rating__c = \'Rated G\' OR Rating__c = \'Rated PG\' OR Rating__c = \'Rated R\')';
+            }
+
+            return queryUserMovies;
+    }
+
+
+    public static string getUserMoviesRateSuggestion(){
+
+        Integer userAge = Integer.valueOf(UserInfoController.getUserContactAge());
+        String queryUserMovies = '';
+
+            if(userAge <= 13){
+                queryUserMovies = 'AND (Movie__r.Rating__c = \'Rated G\' OR Movie__r.Rating__c = \'Rated PG\')';
+            } else if(userAge < 30){
+                 queryUserMovies ='AND (Movie__r.Rating__c = \'Rated G\' OR Movie__r.Rating__c = \'Rated PG\' OR Movie__r.Rating__c = \'Rated R\')';
+            }
+
+            return queryUserMovies;
+    }
+
+
     public static Set<Id> prefferedContactMoviesByGenres(){
 
         Set<Id> preferredGenre = SuggestionsController.prefferedContactGenres();
+        String queryStringUserMovieSugg = SuggestionsController.getUserMoviesRateSuggestion();
+
         
         List<Category_Movie__c> preferredMoviesListOfUser = Database.query(
-            'SELECT Movie__c FROM Category_Movie__c WHERE Movie_Genre__r.Id IN :preferredGenre ORDER BY Movie__r.Ranking__c LIMIT 10'
+            'SELECT Movie__c FROM Category_Movie__c WHERE Movie_Genre__r.Id IN :preferredGenre '+queryStringUserMovieSugg+ ' ORDER BY Movie__r.Ranking__c LIMIT 10'
         );
 
         Set<Id> moviesId = new Set<Id>();
@@ -40,6 +72,17 @@ public with sharing class SuggestionsController {
 
             return moviesId;
     }
+/*
+    public static List<Movie__c> getMoviesForUser(){
+
+        String queryStringUserMovie = SuggestionsController.getUserMoviesRate();
+
+        List<Movie__c> userMovies = Database.query(
+            'SELECT Id, Name FROM Movie__c WHERE '+ queryStringUserMovie
+            );
+            
+        return UserMovies;
+}*/
 
 
 
