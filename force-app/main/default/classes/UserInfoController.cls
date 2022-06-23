@@ -5,7 +5,8 @@ public with sharing class UserInfoController {
 
         String loggedUserId = UserInfo.getUserId();
 
-       //String loggedUserId = '0058c00000CfQQqAAN';
+      // String loggedUserId = '0058c00000CfQQqAAN';
+      
              User contact = Database.query(
           'SELECT ContactId FROM User WHERE Id =: loggedUserId LIMIT 1'
         );

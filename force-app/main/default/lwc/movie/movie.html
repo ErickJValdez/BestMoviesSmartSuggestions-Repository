@@ -11,7 +11,7 @@
             <lightning-layout-item padding="around-small">
                 <a onclick={handleMovieClickShowModal}>
                  <img src={movie.Image_URL__c} alt="Movie picture" />
-                 <p>{movie.Name}</p>
+                 <p class='slds-align_absolute-center'>{movie.Name}</p>
                  <p>Rating: {movie.Rating__c}</p>
                  <template if:true={movie.Ranking__c}>
                  <p>Ranking: {movie.Ranking__c}</p>

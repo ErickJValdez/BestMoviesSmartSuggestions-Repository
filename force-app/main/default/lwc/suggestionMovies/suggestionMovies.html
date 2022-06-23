@@ -1,5 +1,6 @@
 <template>
-    <lightning-card title="Movies you may like" icon-name="standard:filter">
+    <lightning-card>
+        <lightning-badge label="MOVIES YOU MAY LIKE" icon-name="custom:custom11"></lightning-badge>
         <div class="slds-scrollable_x container">
             <template for:each={Movies.data} for:item="movie">
                 <c-movie

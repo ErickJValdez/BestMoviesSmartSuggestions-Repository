@@ -3,6 +3,7 @@ import { LightningElement, api } from 'lwc';
 export default class ModalWatchMovie extends LightningElement {
 
     showModalWatchMovie = false;
+    showRank = false;
     movieValue;
 
   @api show(evt) {

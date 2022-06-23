@@ -29,6 +29,7 @@
             <div class="slds-align_absolute-center">
                 <img src={movieValue.Image_URL__c} alt="Movie picture" />
             </div>
+          <div>
             <lightning-button-icon
             class="slds-button slds-button_brand"
             title="Play"
@@ -36,8 +37,23 @@
            onclick={handlePlay}
           ></lightning-button-icon>
 
+          <template if:true={showRank}>
+            <div class='slds-m-top_small'>
+              <div class="slds-p-around_medium lgc-bg">
+              <lightning-input type="number" label="Leave your ranking"></lightning-input>
+              </div>
+              <div class="slds-p-around_medium lgc-bg">
+             <lightning-input type="checkbox" label="Watched" name="input3" checked disabled></lightning-input>
+              </div>
+             <lightning-button variant="destructive" label="Submit Ranking" title="Submit Ranking" onclick={handleSubmitRanking} class="slds-m-left_x-small"></lightning-button>
+            </div>
+          </template>
+
+          
+        </div>
           <div class="slds-text-align_center">
-            <h1 class="slds-text-body_regular slds-text-title_caps">{movieValue.Name}</h1>
+            <h1 class="slds-text-heading_large slds-text-title_caps">{movieValue.Name}</h1>
+            <p class="slds-text-body_regular">Rating: {movieValue.Rating__c}</p>
             <p class="slds-text-body_regular">Score: {movieValue.Global_Score__c}</p>
             <p class="slds-text-body_regular">Ranking: {movieValue.Ranking__c}</p>
             <p class="slds-text-body_regular">{movieValue.Full_Summary__c}</p>
