@@ -1,18 +1,4 @@
 <template>
-    <lightning-input type="text" style="width:15%;" label="Enter MovieTitle" value={movMovieTitle} onchange={handleChange}>
-    </lightning-input>
-    <table>
-        <tr>
-            <th> Movie Name</th>
-        </tr>
-        <template for:each={records} for:item="mov">
-            <tr key={mov.Id}>
-                <td>
-                    {movMovieTitle}
-                </td>
-
-            </tr>
-
-        </template>
-    </table>
+    <c-lookup onsearch={handleSearch} label="Search Movies" placeholder="Search Movies">
+    </c-lookup>
 </template>
