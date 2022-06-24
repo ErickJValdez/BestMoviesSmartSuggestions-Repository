@@ -15,5 +15,11 @@ export default class ModalWatchMovie extends LightningElement {
   handleDialogClose() {
     this.showModalWatchMovie = false;
   }
+
+  handlePlay(){
+    this.showRank= true;
+  }
+
+
 }
 

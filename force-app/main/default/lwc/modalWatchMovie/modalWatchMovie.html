@@ -31,7 +31,7 @@
             </div>
           <div>
             <lightning-button-icon
-            class="slds-button slds-button_brand"
+            class="slds-button slds-button_brand slds-align_absolute-center"
             title="Play"
             icon-name="utility:play"
            onclick={handlePlay}
@@ -41,15 +41,14 @@
             <div class='slds-m-top_small'>
               <div class="slds-p-around_medium lgc-bg">
               <lightning-input type="number" label="Leave your ranking"></lightning-input>
-              </div>
-              <div class="slds-p-around_medium lgc-bg">
+             
              <lightning-input type="checkbox" label="Watched" name="input3" checked disabled></lightning-input>
               </div>
+              
              <lightning-button variant="destructive" label="Submit Ranking" title="Submit Ranking" onclick={handleSubmitRanking} class="slds-m-left_x-small"></lightning-button>
             </div>
           </template>
 
-          
         </div>
           <div class="slds-text-align_center">
             <h1 class="slds-text-heading_large slds-text-title_caps">{movieValue.Name}</h1>

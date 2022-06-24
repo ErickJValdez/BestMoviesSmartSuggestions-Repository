@@ -30,7 +30,7 @@ public with sharing class SuggestionsController {
             if(userAge <= 13){
                 queryUserMovies = 'AND (Rating__c = \'Rated G\' OR Rating__c = \'Rated PG\')';
             } else if(userAge < 30){
-                 queryUserMovies ='AND (Rating__c = \'Rated G\' OR Rating__c = \'Rated PG\' OR Rating__c = \'Rated R\')';
+                 queryUserMovies ='AND (Rating__c = \'Rated G\' OR Rating__c = \'Rated PG\' OR Rating__c = \'Rated PG-13\')';
             }
 
             return queryUserMovies;
@@ -72,17 +72,6 @@ public with sharing class SuggestionsController {
 
             return moviesId;
     }
-/*
-    public static List<Movie__c> getMoviesForUser(){
-
-        String queryStringUserMovie = SuggestionsController.getUserMoviesRate();
-
-        List<Movie__c> userMovies = Database.query(
-            'SELECT Id, Name FROM Movie__c WHERE '+ queryStringUserMovie
-            );
-            
-        return UserMovies;
-}*/
 
 
 
