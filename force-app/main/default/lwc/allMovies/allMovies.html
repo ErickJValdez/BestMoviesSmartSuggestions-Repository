@@ -1,0 +1,22 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-24-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <lightning-card>
+        <lightning-badge label="MOVIES" icon-name="custom:custom11"></lightning-badge>
+        <div class="slds-scrollable_x container">
+            <template for:each={movies.data} for:item="movie">
+                <c-movie
+                    class="slds-show slds-is-relative"
+                    key={movie.Id}
+                    movie={movie}
+                ></c-movie>
+            </template>
+        </div>
+    </lightning-card>
+    
+</template>

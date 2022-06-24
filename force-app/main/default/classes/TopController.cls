@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 06-22-2022
+ * @last modified on  : 06-24-2022
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public class TopController {
@@ -27,6 +27,7 @@ public class TopController {
         else{
             return movies;
         }
+    }
 
     
         
@@ -52,6 +53,6 @@ public class TopController {
     //}
       
         
-    }
+    
 
 }

@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 06-22-2022
+ * @last modified on  : 06-24-2022
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class TopMoviesUser {
@@ -21,6 +21,8 @@ public with sharing class TopMoviesUser {
         return result;
 
     }
+
+    //FOR THE TOP 10
 
     public static List<Movie__c> getChildMovies(){
         List<Movie__c> childresult = new List<Movie__c>();
@@ -89,7 +91,46 @@ public with sharing class TopMoviesUser {
     }
 
 
+    //FOR ALL MOVIES
+    public static List<Movie__c> getAllChildMovies(){
+        List<Movie__c> childresult = new List<Movie__c>();
+        String age = UserInfoController.getUserContactAge();
+        List<Movie__c> childMovies = new List<Movie__c>();
+        
+        if(Integer.valueOf(age) <= 13){
+            childMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Rating__c = 'Rated G' OR Rating__c = 'Rated PG']);
+            childresult.addAll(childMovies);
+        }
+       
+        return childresult;
+    }
 
+    public static List<Movie__c> getAllYoungMovies(){
+        List<Movie__c> youngresult = new List<Movie__c>();
+        String youngAge = UserInfoController.getUserContactAge();
+        List<Movie__c> youngMovies = new List<Movie__c>();
+
+        If(Integer.valueOf(youngAge) <= 30 ){
+            youngMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE  Rating__c = 'Rated PG-13' OR (Rating__c = 'Rated G' OR Rating__c = 'Rated PG') LIMIT 20]);
+            youngresult.addAll(youngMovies);
+        }
+
+        return youngresult;
+
+    }
+
+    public static List<Movie__c> getAllAdultMovies(){
+        List<Movie__c> adultresult = new List<Movie__c>();
+        String adultAge = UserInfoController.getUserContactAge();
+        List<Movie__c> adultMovies = new List<Movie__c>();
+
+        If(Integer.valueOf(adultAge) > 30){
+            adultMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c LIMIT 20]);
+            adultresult.addAll(adultMovies);
+        }
+
+        return adultresult;
+    }
 
 
 }
