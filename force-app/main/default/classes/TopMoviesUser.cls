@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 06-24-2022
+ * @last modified on  : 06-27-2022
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class TopMoviesUser {
@@ -53,13 +53,15 @@ public with sharing class TopMoviesUser {
         List<Movie__c> youngMovies = new List<Movie__c>();
 
         If(Integer.valueOf(youngAge) <= 30 ){
-            youngMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Ranking__c > 3.8 AND Rating__c = 'Rated PG-13' order by Ranking__c DESC LIMIT 10]);
+            youngMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Ranking__c > 3.8 AND (Rating__c = 'Rated PG-13' OR Rating__c = 'Rated PG' OR Rating__c = 'Rated G') order by Ranking__c DESC LIMIT 10]);
             youngresult.addAll(youngMovies);
             Integer listyoungsize = youngMovies.size();
             Integer size2 = 10 - listyoungsize;
             if(listyoungsize < 10){
                 String yaux= 'Rated PG-13';
-                String query = 'SELECT Id,  Name, Image_URL__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Global_Score__c > 5 AND Ranking__c = NULL AND Rating__c = :yaux order by Global_Score__c DESC LIMIT :size2';
+                String rpg = 'Rated PG';
+                String rg = 'Rated G';
+                String query = 'SELECT Id,  Name, Image_URL__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Global_Score__c > 5 AND Ranking__c = NULL AND (Rating__c = :yaux OR Rating__c = :rpg OR Rating__c = :rg) order by Global_Score__c DESC LIMIT :size2';
                 List<Movie__c> topYoung = Database.query(query);
                 youngresult.addAll(topYoung);
             }
@@ -75,13 +77,12 @@ public with sharing class TopMoviesUser {
         List<Movie__c> adultMovies = new List<Movie__c>();
 
         If(Integer.valueOf(adultAge) > 30){
-            adultMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Ranking__c > 3.8 AND Rating__c = 'Rated R' order by Ranking__c DESC LIMIT 10]);
+            adultMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Ranking__c > 3.8 order by Ranking__c DESC LIMIT 10]);
             adultresult.addAll(adultMovies);
             Integer listadultsize = adultMovies.size();
             Integer size3 = 10 - listadultsize;
             if(listadultsize < 10){
-                String aAux = 'Rated R';
-                String query = 'SELECT Id,  Name, Image_URL__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Global_Score__c > 5 AND Ranking__c = NULL AND Rating__c = :aAux order by Global_Score__c DESC LIMIT :size3';
+                String query = 'SELECT Id,  Name, Image_URL__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Global_Score__c > 5 AND Ranking__c = NULL order by Global_Score__c DESC LIMIT :size3';
                 List<Movie__c> topAdult = Database.query(query);
                 adultresult.addAll(topAdult);
             }
