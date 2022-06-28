@@ -37,7 +37,7 @@
            onclick={handlePlay}
           ></lightning-button-icon>
 
-          <template if:true={showRank}>
+          <template if:true={showRankSection}>
             <div class='slds-m-top_small'>
               <div class="slds-p-around_medium lgc-bg">
               <lightning-input type="number" label="Leave your ranking"></lightning-input>
@@ -58,7 +58,6 @@
             <p class="slds-text-body_regular">Movie Genre(s): {movieGenres}</p>
             <p class="slds-text-body_regular">{movieValue.Full_Summary__c}</p>
           </div>
-           
 
         </lightning-layout-item>
           </div>
