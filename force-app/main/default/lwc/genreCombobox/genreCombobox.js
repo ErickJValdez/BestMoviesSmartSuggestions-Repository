@@ -1,4 +1,6 @@
 import { LightningElement } from 'lwc';
+import getTopMovies from '@salesforce/apex/TopController.getTopMovies';
+
 
 export default class GenreCombobox extends LightningElement {
     get options(){
@@ -20,6 +22,7 @@ export default class GenreCombobox extends LightningElement {
     handleChange(event){
         this.value = event.detail.value;
     }
+    
 
 
 
