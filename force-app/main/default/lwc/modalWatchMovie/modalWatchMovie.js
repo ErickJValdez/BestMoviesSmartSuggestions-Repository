@@ -16,6 +16,8 @@ export default class ModalWatchMovie extends LightningElement {
 
     rankingValues;
 
+    allowRank=true;
+
     @wire(prefferedContactGenres,{movieId:'$movieValue.Id'})
     movieGenre({ error, data }) {
       if(data){
@@ -91,6 +93,7 @@ export default class ModalWatchMovie extends LightningElement {
         result =>{ if (result) {
           console.log('Rank Submitted:'+ result);
           this.showToastRanked();
+          this.reloadPage();
       
         }
       }).catch(error => {
@@ -105,6 +108,12 @@ export default class ModalWatchMovie extends LightningElement {
          eval("$A.get('e.force:refreshView').fire();");
     }, 3000); 
  }
+
+ reloadPage() {
+  setTimeout(() => {
+    window.location.reload();
+  }, 3000); 
+}
 
 
   handleDialogClose() {
@@ -126,9 +135,6 @@ export default class ModalWatchMovie extends LightningElement {
           console.error("Error trying to see the movie" + error);
         });
     } else { console.log('The movie has been watched');}
-
-      
-
 
 
   }
