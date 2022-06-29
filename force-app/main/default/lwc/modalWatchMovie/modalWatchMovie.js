@@ -1,7 +1,11 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, wire, track } from 'lwc';
 import prefferedContactGenres from '@salesforce/apex/CategoryMovieController.prefferedContactGenres';
 import checkIfWatchedMovie from '@salesforce/apex/MovieRankingController.checkIfWatchedMovie';
-import createMovieWatchRecord from '@salesforce/apex/MovieRankingController.checkIfWatchedMovie';
+import createMovieWatchRecord from '@salesforce/apex/MovieRankingController.createMovieWatchRecord';
+import checkIfRankedByUser from '@salesforce/apex/MovieRankingController.checkIfRankedByUser';
+import rankMovie from '@salesforce/apex/MovieRankingController.rankMovie';
+import updateRankMovie from '@salesforce/apex/MovieRankingController.updateRankMovie';
+
 
 export default class ModalWatchMovie extends LightningElement {
 
@@ -9,6 +13,8 @@ export default class ModalWatchMovie extends LightningElement {
     showRankSection;
     movieValue;
     movieGenres;
+
+    rankingValues;
 
     @wire(prefferedContactGenres,{movieId:'$movieValue.Id'})
     movieGenre({ error, data }) {
@@ -25,6 +31,14 @@ export default class ModalWatchMovie extends LightningElement {
     this.movieValue=evt;
 
   }
+
+  showToastRanked() {
+    this.template.querySelector('c-custom-toast').showToast('success', 'The movie has been ranked');
+   }
+
+   showToastUpdate() {
+    this.template.querySelector('c-custom-toast').showToast('success', 'The rank has been updated');
+   }
   
   
   @wire(checkIfWatchedMovie,{movieId:'$movieValue.Id'})
@@ -33,9 +47,65 @@ export default class ModalWatchMovie extends LightningElement {
       this.showRankSection = data;
       console.log(data);
       return 
+    } else {
+      this.showRankSection = true;
     }
     console.log(error);
   }
+
+  @wire(checkIfRankedByUser,{movieId:'$movieValue.Id'})
+  rankByUser({ error, data }) {
+    if(data){
+      this.rankingValues = data;
+      console.log(data);
+      this.template.querySelector("lightning-input").value=this.rankingValues.Rank__c;
+      return 
+    }
+    console.log(error);
+  }
+
+
+  handleSubmitRanking(){
+    
+    const inputRanking = this.template.querySelector("lightning-input");
+
+    console.log('Clicked on submit buttom, the input data is: '+ inputRanking.value);
+   
+    if(this.rankingValues){
+      console.log('Movie already ranked let\'s update it');
+      updateRankMovie({rankId: this.rankingValues.Id, rankNumber: inputRanking.value}).then(
+        result =>{ if (result) {
+          console.log('Rank updated:'+ result);
+          this.showToastUpdate();
+        }
+      }).catch(error => {
+          console.error("Error trying to update the rank record: " + error);
+        });
+        
+        return;
+    } 
+
+      console.log('Movie hasn\'s been ranked let\'s rank it');
+
+      rankMovie({movieId: this.movieValue.Id, rankNumber: inputRanking.value}).then(
+        result =>{ if (result) {
+          console.log('Rank Submitted:'+ result);
+          this.showToastRanked();
+      
+        }
+      }).catch(error => {
+          console.error("Error trying to submit the rank record: " + error);
+        });
+
+
+  }
+
+  updateRecordView() {
+    setTimeout(() => {
+         eval("$A.get('e.force:refreshView').fire();");
+    }, 3000); 
+ }
+
 
   handleDialogClose() {
     this.showModalWatchMovie = false;
@@ -43,23 +113,24 @@ export default class ModalWatchMovie extends LightningElement {
 
   handlePlay(){
 
-    const movieW= {movie: this.movieValue.Id};
-
-    console.log(movieW);
     if(this.showRankSection==false){
-      console.log('Show movie:' + movieW);
 
-        createMovieWatchRecord({movieId: JSON.stringify(movieW)}).then(result => {
-          if (result) {
+      console.log('Show movie:' + this.movieValue.Id);
+
+        createMovieWatchRecord({movieId: this.movieValue.Id}).then(result =>{ if (result) {
             this.showRankSection = true;
             console.log('Movie Watched Created');
           }
         })
         .catch(error => {
-          console.error("Error creating movie watched" + error);
+          console.error("Error trying to see the movie" + error);
         });
-    } else { console.log('Show rank section is true');}
-    console.log('Last log on handlePlay');
+    } else { console.log('The movie has been watched');}
+
+      
+
+
+
   }
 
 

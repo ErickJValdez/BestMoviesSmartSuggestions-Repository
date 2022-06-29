@@ -22,31 +22,80 @@ public with sharing class MovieRankingController {
     }
 
     @AuraEnabled
-    public static String createMovieWatchRecord(String movieId){
+    public static String createMovieWatchRecord(Id movieId){
 
-        MovieWatch movieWatchObject;
         Movie_Watch__c mw;
-
         try{
-            movieWatchObject = (MovieWatch)JSON.deserialize(movieId, MovieWatch.class);
-
+          
             mw = new Movie_Watch__c();
-            mw.Movie__c = MovieWatchObject.movie;
+            mw.Movie__c = movieId;
             mw.Contact__c = userContactId;
-
             insert mw;
             
         } catch (DmlException e){
-            System.debug('The following exception has occurred: ' + e.getMessage());
+            System.debug('The following exception has occurred: ' + 
+                            e.getMessage());
         }
-
         return String.valueOf(mw.Id);
 
     }
 
-    //Wrapper class
-    public class MovieWatch{
-        @AuraEnabled
-        public String movie;
-      }
+    @AuraEnabled(cacheable=true)
+    public static Customer_Ranking__c checkIfRankedByUser(Id movieId){
+
+        Customer_Ranking__c movieRanked;
+        try{
+            movieRanked = Database.query('SELECT Id, Rank__c FROM Customer_Ranking__c WHERE Contact__c =:userContactId AND Movie__c=:movieId LIMIT 1');
+        } catch (Exception e){
+          System.debug('An exception occurred: ' + e.getMessage());
+        }
+        
+            return movieRanked;
+
+    }
+
+    @AuraEnabled
+    public static String rankMovie(Id movieId, Integer rankNumber){
+
+        Customer_Ranking__c cr;
+        try{
+          
+            cr = new Customer_Ranking__c();
+            cr.Movie__c = movieId;
+            cr.Contact__c = userContactId;
+            cr.Rank__c = rankNumber;
+
+            insert cr;
+            
+        } catch (DmlException e){
+            System.debug('The following exception has occurred: ' + 
+                            e.getMessage());
+        }
+        return String.valueOf(cr.Id);
+
+    }
+
+    @AuraEnabled
+    public static String updateRankMovie(Id rankId, Integer rankNumber){
+        Customer_Ranking__c  movieRankToUp;
+
+        try {
+            movieRankToUp = [SELECT Id, Rank__c FROM Customer_Ranking__c WHERE ID =: rankId LIMIT 1];
+            movieRankToUp.Rank__c = rankNumber;
+            update movieRankToUp;
+
+        } catch (Exception e) {
+            System.debug('The following exception has occurred: ' + 
+                            e.getMessage());
+        }
+
+        return String.valueOf(movieRankToUp.Id);
+
+    }
+
+
+   
+
+
+
 }

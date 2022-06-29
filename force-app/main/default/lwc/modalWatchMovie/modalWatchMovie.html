@@ -1,4 +1,5 @@
 <template>
+  <c-custom-toast auto-close-time="8000"></c-custom-toast>
     <template if:true={showModalWatchMovie}>
       <section
         role="dialog"
@@ -40,7 +41,8 @@
           <template if:true={showRankSection}>
             <div class='slds-m-top_small'>
               <div class="slds-p-around_medium lgc-bg">
-              <lightning-input type="number" label="Leave your ranking"></lightning-input>
+
+              <lightning-input type="number" label="Leave your ranking" placeholder="Leave a number from 1 to 5" min="1" max="5"></lightning-input>
              
              <lightning-input type="checkbox" label="Watched" name="input3" checked disabled></lightning-input>
               </div>
