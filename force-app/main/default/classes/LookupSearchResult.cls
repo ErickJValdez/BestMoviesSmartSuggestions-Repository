@@ -8,6 +8,7 @@ public virtual class LookupSearchResult implements Comparable {
     protected String icon;
     protected String title;
     protected String subtitle;
+    protected SObject payload;
 
     protected LookupSearchResult() {
     }
@@ -18,6 +19,7 @@ public virtual class LookupSearchResult implements Comparable {
      * @param icon Optional - A qualified SLDS icon name taken from https://www.lightningdesignsystem.com/icons. It defaults to standard:default.
      * @param title Required - The label of the lookup entry
      * @param subtitle Optional - A subtitle that is displayed under the lookup entry label
+     * @param payload Optional - A custom payload that is passed back to the selection handler
      */
     public LookupSearchResult(String id, String sObjectType, String icon, String title, String subtitle) {
         this.id = id;
@@ -25,6 +27,15 @@ public virtual class LookupSearchResult implements Comparable {
         this.icon = icon;
         this.title = title;
         this.subtitle = subtitle;
+    }
+
+    public LookupSearchResult(String id, String sObjectType, String icon, String title, String subtitle, SObject payload) {
+        this.id = id;
+        this.sObjectType = sObjectType;
+        this.icon = icon;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.payload = payload;
     }
 
     @AuraEnabled
@@ -50,6 +61,11 @@ public virtual class LookupSearchResult implements Comparable {
     @AuraEnabled
     public String getSubtitle() {
         return subtitle;
+    }
+
+    @AuraEnabled
+    public SObject getPayload() {
+        return payload;
     }
 
     /**

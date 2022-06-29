@@ -6,7 +6,12 @@ public with sharing class MoviesSearchBarController {
         searchTerm = '%' + searchTerm + '%';
         // Execute search query
         List<Movie__c> entries = [
-            SELECT Name
+            SELECT Name,
+                Image_URL__c,
+                Rating__c,
+                Global_Score__c,
+                Ranking__c,
+                Full_Summary__c
             FROM Movie__c
             WHERE
                 Name LIKE :searchTerm
@@ -16,10 +21,9 @@ public with sharing class MoviesSearchBarController {
         // Prepare results
         List<LookupSearchResult> results = new List<LookupSearchResult>();
         for (Movie__c entry : entries) {
-            results.add(new LookupSearchResult(entry.Id, null, null, entry.Name, null));
+            results.add(new LookupSearchResult(entry.Id, 'Movie__c', 'custom:custom24', entry.Name, null, entry));
         }
         return results;
-   
 }
 
 }

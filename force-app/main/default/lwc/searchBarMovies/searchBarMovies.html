@@ -1,4 +1,8 @@
 <template>
-    <c-lookup onsearch={handleSearch} label="Search Movies" placeholder="Search Movies">
+    <c-lookup onsearch={handleSearch} 
+        onselectionchange={handleSelectionChange} 
+        label="Search Movies" 
+        placeholder="Search Movies">
     </c-lookup>
+    <c-modal-Watch-Movie></c-modal-Watch-Movie>
 </template>
