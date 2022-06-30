@@ -79,6 +79,8 @@ export default class ModalWatchMovie extends LightningElement {
         result =>{ if (result) {
           console.log('Rank updated:'+ result);
           this.showToastUpdate();
+          this.reloadPage();
+
         }
       }).catch(error => {
           console.error("Error trying to update the rank record: " + error);
@@ -112,7 +114,7 @@ export default class ModalWatchMovie extends LightningElement {
  reloadPage() {
   setTimeout(() => {
     window.location.reload();
-  }, 3000); 
+  }, 2000); 
 }
 
 
