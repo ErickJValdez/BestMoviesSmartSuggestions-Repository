@@ -2,10 +2,11 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 06-27-2022
+  @last modified on  : 06-30-2022
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
+ 
     <lightning-combobox
     name="genres"
     value={value}
@@ -13,5 +14,14 @@
     options={options}
     onchange={handleChange}>
 </lightning-combobox>
-    
+
+<div class="slds-scrollable_x container">
+  <template for:each={data} for:item="movie">
+      <c-movie
+          class="slds-show slds-is-relative"
+          key={movie.Id}
+          movie={movie}
+      ></c-movie>
+  </template>
+</div>
 </template>
