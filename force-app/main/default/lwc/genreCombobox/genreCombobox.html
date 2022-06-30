@@ -6,7 +6,8 @@
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
- 
+  <lightning-card>
+  <lightning-badge label="MOVIES" icon-name="custom:custom11"></lightning-badge>
     <lightning-combobox
     name="genres"
     value={value}
@@ -14,7 +15,6 @@
     options={options}
     onchange={handleChange}>
 </lightning-combobox>
-
 <div class="slds-scrollable_x container">
   <template for:each={data} for:item="movie">
       <c-movie
@@ -24,4 +24,13 @@
       ></c-movie>
   </template>
 </div>
+<template if:false={value}>
+    <c-all-movies></c-all-movies>
+</template>
+<template if:true={value}>
+  <div class="slds-hidden">
+    <c-all-movies></c-all-movies>
+  </div>
+</template>
+</lightning-card>
 </template>

@@ -15,6 +15,7 @@ public with sharing class MovieByCategory {
         if(Integer.valueOf(age) <= 13){
             childresult.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Id IN (SELECT Movie__c FROM Category_Movie__c WHERE Movie_Genre__c = :categoryId) AND (Rating__c = 'Rated G' OR Rating__c = 'Rated PG')]);
             return childresult;
+
         }
         else if(Integer.valueOf(age) <= 30){
             youngresult.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Id IN (SELECT Movie__c FROM Category_Movie__c WHERE Movie_Genre__c = :categoryId) AND (Rating__c = 'Rated G' OR Rating__c = 'Rated PG' OR Rating__c = 'Rated PG-13')]);

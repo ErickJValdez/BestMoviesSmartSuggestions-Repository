@@ -2,16 +2,11 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 06-27-2022
+  @last modified on  : 06-30-2022
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
     <lightning-card>
-        <lightning-badge label="MOVIES" icon-name="custom:custom11"></lightning-badge>
-        <div>
-            <c-genre-Combobox></c-genre-Combobox>
-        </div>
-       
         <div class="slds-scrollable_x container">
             <template for:each={movies.data} for:item="movie">
                 <c-movie
@@ -22,5 +17,5 @@
             </template>
         </div>
     </lightning-card>
-    
+   
 </template>

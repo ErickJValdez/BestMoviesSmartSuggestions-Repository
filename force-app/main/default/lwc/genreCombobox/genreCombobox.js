@@ -6,6 +6,8 @@ import getMovies from '@salesforce/apex/MovieByCategory.getMovies';
 export default class GenreCombobox extends LightningElement {
     genreList;
     @track data = [];
+    @api value;
+    @api default;
     @wire(getMovieGenres)
      wiredGenre({error, data}){
         if(data){
@@ -15,7 +17,7 @@ export default class GenreCombobox extends LightningElement {
             data.forEach(element => {
                 elements.push({label: element.Name, value: element.Id});
             });
-            elements.push({label: 'Default Movies', value: 'defaultM'});
+            elements.push({label: 'Default Movies'});
 
             this.genreList = [...elements];
 
@@ -29,10 +31,9 @@ export default class GenreCombobox extends LightningElement {
      } 
      handleChange(event){
         this.value = event.detail.value;
-        //const select = event.detail.value;
         getMovies({categoryId: this.value}).then(result =>{
             this.data = result;
-            console.log(event.detail.value);    
+            console.log('This is the id: '+this.value);    
         })
         .catch(error => {
             console.error("Error trying to see this category" + error);
