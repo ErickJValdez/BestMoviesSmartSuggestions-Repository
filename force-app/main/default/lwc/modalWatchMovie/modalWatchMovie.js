@@ -1,10 +1,17 @@
-import { LightningElement, api, wire, track } from 'lwc';
-import prefferedContactGenres from '@salesforce/apex/CategoryMovieController.prefferedContactGenres';
+import { LightningElement, api, wire } from 'lwc';
+
+import movieGenresList from '@salesforce/apex/CategoryMovieController.movieGenres';
 import checkIfWatchedMovie from '@salesforce/apex/MovieRankingController.checkIfWatchedMovie';
 import createMovieWatchRecord from '@salesforce/apex/MovieRankingController.createMovieWatchRecord';
 import checkIfRankedByUser from '@salesforce/apex/MovieRankingController.checkIfRankedByUser';
 import rankMovie from '@salesforce/apex/MovieRankingController.rankMovie';
 import updateRankMovie from '@salesforce/apex/MovieRankingController.updateRankMovie';
+
+import movieLike from '@salesforce/apex/SuggestionsController.movieLike';
+import movieDislike from '@salesforce/apex/SuggestionsController.movieDislike';
+import checkMovieLike from '@salesforce/apex/SuggestionsController.checkMovieLike';
+
+
 
 
 export default class ModalWatchMovie extends LightningElement {
@@ -13,26 +20,86 @@ export default class ModalWatchMovie extends LightningElement {
     showRankSection;
     movieValue;
     movieGenres;
+    movieLikeVar= false;
 
     rankingValues;
 
     allowRank=true;
 
-    @wire(prefferedContactGenres,{movieId:'$movieValue.Id'})
+    @api show(evt) {
+      this.showModalWatchMovie = true;
+      this.movieValue=evt; 
+      this.checkIfRanked();
+      this.checkIfWatched();
+      this.checkIfMovieLiked();
+
+    }
+
+   checkIfRanked(){
+
+    checkIfRankedByUser({movieId: this.movieValue.Id}).then(
+      result =>{ 
+        if (result) {
+          this.rankingValues = result;
+      }
+    }).catch(error => {
+      console.log('Check If rank by user '+ error);
+    });
+      
+   }
+
+
+  
+   checkIfWatched(){
+
+    checkIfWatchedMovie({movieId: this.movieValue.Id}).then(
+      result =>{ 
+        if (!result) {
+          this.showRankSection = result;
+       } else {
+        this.showRankSection = true;
+      }
+    }).catch(error => {
+      console.log('Check If movie watched '+ error);
+    });
+
+   }
+
+   checkIfMovieLiked(){
+
+    checkMovieLike({movieId: this.movieValue.Id}).then(
+      result =>{ 
+        if (result) {
+          this.movieLikeVar = result;
+
+          if(this.template.querySelector("button")){
+            const button = this.template.querySelector("button");
+            button.className+=" selected";
+          }
+       }
+    }).catch(error => {
+      console.log('Check If movie liked '+ error);
+    });
+   }
+
+   get Rank(){
+    if(this.rankingValues){
+      return this.rankingValues.Rank__c;
+    } else {
+      return 0;
+    }
+   }
+ 
+    @wire(movieGenresList,{movieId:'$movieValue.Id'})
     movieGenre({ error, data }) {
       if(data){
         this.movieGenres = data;
         console.log(data);
         return 
       }
-      console.log(error);
+      console.log('Movie genre '+ error);
     }
 
-  @api show(evt) {
-    this.showModalWatchMovie = true;
-    this.movieValue=evt;
-
-  }
 
   showToastRanked() {
     this.template.querySelector('c-custom-toast').showToast('success', 'The movie has been ranked');
@@ -42,33 +109,9 @@ export default class ModalWatchMovie extends LightningElement {
     this.template.querySelector('c-custom-toast').showToast('success', 'The rank has been updated');
    }
   
-  
-  @wire(checkIfWatchedMovie,{movieId:'$movieValue.Id'})
-  checkIfMovieWatched({ error, data }) {
-    if(!data){
-      this.showRankSection = data;
-      console.log(data);
-      return 
-    } else {
-      this.showRankSection = true;
-    }
-    console.log(error);
-  }
-
-  @wire(checkIfRankedByUser,{movieId:'$movieValue.Id'})
-  rankByUser({ error, data }) {
-    if(data){
-      this.rankingValues = data;
-      console.log(data);
-      this.template.querySelector("lightning-input").value=this.rankingValues.Rank__c;
-      return 
-    }
-    console.log(error);
-  }
-
 
   handleSubmitRanking(){
-    
+
     const inputRanking = this.template.querySelector("lightning-input");
 
     console.log('Clicked on submit buttom, the input data is: '+ inputRanking.value);
@@ -79,8 +122,6 @@ export default class ModalWatchMovie extends LightningElement {
         result =>{ if (result) {
           console.log('Rank updated:'+ result);
           this.showToastUpdate();
-          this.reloadPage();
-
         }
       }).catch(error => {
           console.error("Error trying to update the rank record: " + error);
@@ -95,8 +136,7 @@ export default class ModalWatchMovie extends LightningElement {
         result =>{ if (result) {
           console.log('Rank Submitted:'+ result);
           this.showToastRanked();
-          this.reloadPage();
-      
+          this.checkIfRanked();
         }
       }).catch(error => {
           console.error("Error trying to submit the rank record: " + error);
@@ -104,18 +144,6 @@ export default class ModalWatchMovie extends LightningElement {
 
 
   }
-
-  updateRecordView() {
-    setTimeout(() => {
-         eval("$A.get('e.force:refreshView').fire();");
-    }, 3000); 
- }
-
- reloadPage() {
-  setTimeout(() => {
-    window.location.reload();
-  }, 2000); 
-}
 
 
   handleDialogClose() {
@@ -125,7 +153,6 @@ export default class ModalWatchMovie extends LightningElement {
   handlePlay(){
 
     if(this.showRankSection==false){
-
       console.log('Show movie:' + this.movieValue.Id);
 
         createMovieWatchRecord({movieId: this.movieValue.Id}).then(result =>{ if (result) {
@@ -137,10 +164,45 @@ export default class ModalWatchMovie extends LightningElement {
           console.error("Error trying to see the movie" + error);
         });
     } else { console.log('The movie has been watched');}
-
-
   }
 
+
+  likeButtonHandler(){
+ 
+    if(this.movieLikeVar){
+
+      console.log('I disliked the movie');
+
+      const button = this.template.querySelector("button");
+      button.className="like-button";
+
+      movieDislike({movieId: this.movieValue.Id}).then(
+        result =>{ 
+              console.log('Movie disliked '+ result);
+      }).catch(error => {
+        console.log('Movie disliked error: '+ error);
+      });
+      this.movieLikeVar = false;
+      return
+    } else {
+        console.log('I liked the movie');
+
+      const button = this.template.querySelector("button");
+      button.className+=" selected";
+
+      movieLike({movieId: this.movieValue.Id}).then(
+        result =>{ 
+          if (result) {
+              console.log('Movie liked '+ result);
+        }
+      }).catch(error => {
+        console.log('Check If movie liked error: '+ error);
+      });
+
+      this.movieLikeVar = true;  
+    return
+  }
+}
 
 }
 

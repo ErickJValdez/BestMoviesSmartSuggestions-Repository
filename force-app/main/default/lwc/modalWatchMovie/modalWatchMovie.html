@@ -1,6 +1,6 @@
 <template>
-  <c-custom-toast auto-close-time="8000"></c-custom-toast>
     <template if:true={showModalWatchMovie}>
+      <c-custom-toast auto-close-time="8000"></c-custom-toast>
       <section
         role="dialog"
         tabindex="-1"
@@ -39,10 +39,19 @@
           ></lightning-button-icon>
 
           <template if:true={showRankSection}>
+
+<div class="slds-align_absolute-center ">
+            <button type="button" class="like-button" onclick={likeButtonHandler}>
+              <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M91.6 13A28.7 28.7 0 0 0 51 13l-1 1-1-1A28.7 28.7 0 0 0 8.4 53.8l1 1L50 95.3l40.5-40.6 1-1a28.6 28.6 0 0 0 0-40.6z" />
+              </svg>
+              Like
+            </button>
+          </div>
             <div class='slds-m-top_small'>
               <div class="slds-p-around_medium lgc-bg">
 
-              <lightning-input type="number" label="Leave your ranking" placeholder="Leave a number from 1 to 5" min="1" max="5"></lightning-input>
+              <lightning-input type="number" label="Leave your ranking" placeholder="Leave a number from 1 to 5" min="1" max="5" value={Rank}></lightning-input>
              
              <lightning-input type="checkbox" label="Watched" name="input3" checked disabled></lightning-input>
               </div>

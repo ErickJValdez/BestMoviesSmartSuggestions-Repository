@@ -1,7 +1,7 @@
 public with sharing class CategoryMovieController {
 
     @AuraEnabled(cacheable=true)
-    public static String prefferedContactGenres(Id movieId){
+    public static String movieGenres(Id movieId){
                            
         List<Category_Movie__c> movieCategories = [SELECT Movie_Genre__r.Name FROM Category_Movie__c WHERE Movie__c =: movieId];
         

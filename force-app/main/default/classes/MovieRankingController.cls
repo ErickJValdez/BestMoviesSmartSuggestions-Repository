@@ -3,7 +3,7 @@ public with sharing class MovieRankingController {
      static String userContactId= UserInfoController.getUserContactId();
 
 
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static Boolean checkIfWatchedMovie(Id movieId){
 
         List<Movie_Watch__c> movieWatch;
@@ -40,7 +40,7 @@ public with sharing class MovieRankingController {
 
     }
 
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static Customer_Ranking__c checkIfRankedByUser(Id movieId){
 
         Customer_Ranking__c movieRanked;

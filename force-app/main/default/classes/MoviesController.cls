@@ -3,7 +3,7 @@ public with sharing class MoviesController {
     @AuraEnabled(cacheable=true)
     public static List<Movie__c> getMoviesSuggestion(){
 
-        Set<Id> moviesIds= SuggestionsController.prefferedContactMoviesByGenres();
+        Set<Id> moviesIds= SuggestionsController.likesMoviesByGenresForContact();
         String queryStringUserTypeMovies = SuggestionsController.getUserMoviesRate();
         
         List<Movie__c> moviesList = Database.query(
@@ -34,6 +34,7 @@ public with sharing class MoviesController {
         }    
             return listres;
     }
+
         
 
 }
