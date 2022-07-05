@@ -24,6 +24,11 @@ public with sharing class MoviesSearchBarController {
             results.add(new LookupSearchResult(entry.Id, 'Movie__c', 'custom:custom24', entry.Name, null, entry));
         }
         return results;
+        
 }
+
+//FOR ALL MOVIES FILTER
+
+
 
 }

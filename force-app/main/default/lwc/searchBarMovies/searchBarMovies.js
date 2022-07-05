@@ -23,7 +23,7 @@ export default class SearchBarMovies extends LightningElement {
         if(!selectedId) {
             return;
         }
-        
+
         const selectedMovie = this.results.find(movie => movie.id === selectedId)?.payload;
 
         const modal = this.template.querySelector("c-modal-Watch-Movie");
