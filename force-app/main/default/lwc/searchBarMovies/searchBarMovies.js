@@ -1,6 +1,8 @@
 import { LightningElement } from 'lwc';
 
 import search from '@salesforce/apex/MoviesSearchBarController.search';
+import test from '@salesforce/apex/MoviesSearchBarController.test';
+
 
 export default class SearchBarMovies extends LightningElement {
     results = [];
@@ -28,5 +30,9 @@ export default class SearchBarMovies extends LightningElement {
 
         const modal = this.template.querySelector("c-modal-Watch-Movie");
         modal.show( selectedMovie );
+    }
+
+    connectedCallback( ){
+        test().then(string => console.log(string)) 
     }
 }
