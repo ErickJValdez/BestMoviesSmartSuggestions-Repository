@@ -1,7 +1,7 @@
 
 public with sharing class SuggestionsController {
     
-        static string contactId = UserInfoController.getUserContactId();
+    static string contactId = UserInfoController.getUserContactId();
 
     @AuraEnabled
     public static Boolean movieLike(Id movieId){
@@ -16,7 +16,6 @@ public with sharing class SuggestionsController {
             System.debug('The following exception has occurred: ' + 
                             e.getMessage());
         }
-
         return movieWatch.Like__c;
 
     }
@@ -56,27 +55,7 @@ public with sharing class SuggestionsController {
     }
 
 
-
-    /*public static Set<Id> prefferedContactGenres(){
-        
-        String contactId = UserInfoController.getUserContactId();
-                   
-        List<Preferred_Genres__c> preferredGenresListOfUser = [SELECT Movie_Genre__c FROM Preferred_Genres__c WHERE Contact__c =: contactId];
-        
-        Set<Id> preferredGenresId = new Set<Id>();
-        
-        for(Preferred_Genres__c listOfItem: preferredGenresListOfUser) {
-             if(listOfItem.Movie_Genre__c != Null) {
-                preferredGenresId.add(listOfItem.Movie_Genre__c);
-                }
-        }
-
-            return preferredGenresId;
-    }*/
-
     public static Set<Id> genresMoviesUserLikes(){
-
-        //String contactId = UserInfoController.getUserContactId();
 
         List<Category_Movie__c> genresOfMoviesLikesByUser = [SELECT Movie_Genre__c FROM Category_Movie__c WHERE Movie__c IN (SELECT Movie__c FROM Movie_Watch__c WHERE Contact__c =:contactId AND Like__c= True)];
 
@@ -91,8 +70,6 @@ public with sharing class SuggestionsController {
 
             return GenresId;
     }
-
-    
 
 
     public static string getUserMoviesRate(){
@@ -143,6 +120,41 @@ public with sharing class SuggestionsController {
         }
 
             return moviesId;
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Movie__c> getMoviesSuggestion(){
+
+        Set<Id> moviesIds= SuggestionsController.likesMoviesByGenresForContact();
+        String queryStringUserTypeMovies = SuggestionsController.getUserMoviesRate();
+        
+        List<Movie__c> moviesList = Database.query(
+            'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE ID IN: moviesIds '+queryStringUserTypeMovies+' ORDER BY Ranking__c DESC LIMIT 10'
+            );
+        
+        Integer lists = moviesList.size();
+        List<Movie__c> listres = new List<Movie__c>();
+        Integer list2s = 10 - lists;
+        listres.addAll(moviesList);
+        if(lists < 10){
+            List<Movie__c> bestMovies = Database.query(
+                'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE (ID NOT IN: moviesIds AND (RANKING__C  != NULL AND (RANKING__C > 0 OR Global_Score__c > 0))) '+queryStringUserTypeMovies+' ORDER BY Ranking__c DESC LIMIT :list2s'
+                );
+
+            listres.addAll(bestMovies);
+
+                lists = lists + bestMovies.size();
+                list2s = 10 - lists;
+                
+                If(lists<10) {
+                    List<Movie__c> bMovies = Database.query(
+                'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE (RANKING__C  = NULL AND Global_Score__c > 0) '+queryStringUserTypeMovies+' ORDER BY Global_Score__c DESC LIMIT :list2s'
+                );
+                listres.addAll(bMovies);
+                }
+
+        }    
+            return listres;
     }
 
 

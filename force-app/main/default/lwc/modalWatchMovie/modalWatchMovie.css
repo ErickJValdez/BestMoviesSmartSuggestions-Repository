@@ -36,3 +36,21 @@
   body {
     text-align: center;
   }
+
+  .slds-modal__container {
+    max-width: 80% !important;
+    width: 80% !important;
+}
+
+p {
+  font-family:verdana;
+  font-size:15px;
+
+}
+
+h1 {
+  color:darkblue;
+  font-family:verdana;
+  font-size:30px;
+  text-decoration: underline;
+}

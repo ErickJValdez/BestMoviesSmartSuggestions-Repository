@@ -86,7 +86,7 @@ export default class ModalWatchMovie extends LightningElement {
     if(this.rankingValues){
       return this.rankingValues.Rank__c;
     } else {
-      return 0;
+      return '';
     }
    }
  
