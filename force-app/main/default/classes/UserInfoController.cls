@@ -3,9 +3,7 @@ public with sharing class UserInfoController{
     public static String getUserContactId(){
 
         String loggedUserId = UserInfo.getUserId();
-
         User contact;
-        //String loggedUserId = '0058c00000CfQQqAAN';
 
         try{
             contact = Database.query('SELECT ContactId FROM User WHERE Id =: loggedUserId LIMIT 1');
@@ -13,8 +11,13 @@ public with sharing class UserInfoController{
             System.debug('An exception occurred: ' + e.getMessage());
         }
 
+        if(contact.ContactId!=null){
+            return String.valueOf(contact.ContactId);
+        } else {
+            return '0038c00002oSEkzAAG'; // Sys admin related contact for testing purpose!
+        }
 
-        return String.valueOf(contact.ContactId);
+       
     }
 
     public static String getUserContactAge(){
@@ -24,11 +27,7 @@ public with sharing class UserInfoController{
 
         if (String.isNotBlank(conId)){
             edad = Database.query('SELECT Age__C FROM Contact WHERE Id =:conId LIMIT 1');
-        } else{
-            edad = Database.query('SELECT Age__C FROM Contact WHERE Id =\'0038c00002oTUK2AAO\'LIMIT 1'  //Just to test the System admin since it does not have a related contact.
-            );
         }
-
 
         return String.valueOf(edad.Age__C);
     }
