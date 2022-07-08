@@ -4,3 +4,7 @@
     flex-wrap: wrap;
     
 }
+
+:host {
+    --sds-c-card-color-background: #D5E0F4;
+}

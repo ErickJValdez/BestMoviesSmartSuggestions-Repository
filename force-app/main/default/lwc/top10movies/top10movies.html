@@ -7,10 +7,10 @@
 -->
 
 <template>
+    <div class="slds-text-align_center slds-m-around_x-small">
     <lightning-card>
-        <lightning-badge label="TOP 10 MOVIES"  icon-name="custom:custom11"></lightning-badge>
+        <lightning-badge class="slds-align_relative-center" style="height:2rem" label="TOP 10 MOVIES"  icon-name="custom:custom11"></lightning-badge>
         <div class="slds-scrollable_x container">
-          
             <template for:each={movie__c.data} for:item="movie">
                 <c-movie
                     class="slds-show slds-is-relative"
@@ -20,4 +20,5 @@
             </template>
         </div>
     </lightning-card>
+</div>
 </template>

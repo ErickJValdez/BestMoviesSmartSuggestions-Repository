@@ -5,3 +5,7 @@
     max-height: 250px;
     max-width: 100%;
 }
+
+:host {
+    --sds-c-card-color-background: #D5E0F4;
+}

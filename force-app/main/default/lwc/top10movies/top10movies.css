@@ -7,8 +7,7 @@
     
 }
 
-.redColor{
-    fill : #FF0000;
+:host {
+    --sds-c-card-color-background: #D5E0F4;
 }
 
-/* djkdmkmslds*/
