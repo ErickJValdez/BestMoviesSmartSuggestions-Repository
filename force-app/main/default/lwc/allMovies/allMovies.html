@@ -2,20 +2,29 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 06-30-2022
+  @last modified on  : 07-08-2022
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
     <lightning-card>
-        <div class="slds-scrollable_x container">
-            <template for:each={movies.data} for:item="movie">
-                <c-movie
-                    class="slds-show slds-is-relative"
-                    key={movie.Id}
-                    movie={movie}
-                ></c-movie>
-            </template>
-        </div>
+        <lightning-layout multiple-rows="true">
+           
+                <lightning-layout-item size = "12" margin = "around-small">
+                <div class="slds-scrollable_x container">
+                    <template for:each={movies.data} for:item="movie">
+                        <c-movie
+                            class="slds-show slds-is-relative"
+                            key={movie.Id}
+                            movie={movie}
+                        ></c-movie>
+                    </template>
+                    
+                </div>
+                <button onclick={handleNextPage}>Next Page</button>
+                </lightning-layout-item>
+            
+            </lightning-layout>
+
     </lightning-card>
    
 </template>

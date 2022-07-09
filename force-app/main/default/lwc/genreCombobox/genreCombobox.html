@@ -9,13 +9,17 @@
   <div class="slds-text-align_center slds-m-around_x-small">
   <lightning-card>
     <h1><lightning-badge label="MOVIES" icon-name="custom:custom100" ></lightning-badge></h1>
+    <lightning-layout horizontal-align="center">
+    <div class="slds-size_3-of-4">
+      <div class="slds-var-m-top_large slds-var-p-right_medium">
     <lightning-combobox
     name="genres"
     value={value}
     placeholder="Select Genre"
     options={options}
     onchange={handleChange}>
-</lightning-combobox>
+  </lightning-combobox>
+</div>
 <div class="slds-scrollable_x container">
   <template for:each={data} for:item="movie">
       <c-movie
@@ -26,13 +30,15 @@
   </template>
 </div>
 <template if:false={value}>
-    <c-all-movies></c-all-movies>
+  <c-all-movies></c-all-movies>
 </template>
 <template if:true={value}>
-  <div class="slds-hidden">
-    <c-all-movies></c-all-movies>
-  </div>
+<div class="slds-hidden">
+  <c-all-movies></c-all-movies>
+</div>
 </template>
+</div>
+</lightning-layout>
 </lightning-card>
 </div>
 </template>
