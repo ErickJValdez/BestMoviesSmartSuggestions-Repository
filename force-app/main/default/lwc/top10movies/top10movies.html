@@ -5,7 +5,7 @@
   @last modified on  : 07-08-2022
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
-
+<!--
 <template>
     <div class="slds-text-align_center slds-m-around_x-small">
     <lightning-card>
@@ -21,4 +21,55 @@
         </div>
     </lightning-card>
 </div>
+</template>
+-->
+
+
+
+<template>
+    <div class="slds-text-align_center slds-m-around_x-small">
+        <lightning-card>
+            <lightning-badge label="TOP 10 MOVIES" icon-name="custom:custom11"></lightning-badge>
+            <div class="wrapper">
+                <section id="section1">
+                    <a href="#section2" class="arrow__btn">‹</a>
+                
+                    <template for:each={firstSectionMovies} for:item="movie">
+                        <div class="item" key={movie.Id} >
+
+                        <c-movie
+                            class="slds-show slds-is-relative"
+                            movie={movie}
+                        ></c-movie>
+                        
+                        </div>
+                    </template>
+                    
+                    <a href="#section2" class="arrow__btn">›</a>
+                </section>
+
+
+
+                <section id="section2">
+                    <a href="#section1" class="arrow__btn">‹</a>
+                    
+                    <template for:each={secondSectionMovies} for:item="movie">
+                        <div class="item" key={movie.Id} >
+                        <c-movie
+                            class="slds-show slds-is-relative"
+                            movie={movie}
+                        ></c-movie>
+                        </div>
+                    </template>
+                    
+                    
+                    
+                    <a href="#section1" class="arrow__btn">›</a>
+                </section>
+                
+                
+            </div>
+
+        </lightning-card>
+    </div>
 </template>

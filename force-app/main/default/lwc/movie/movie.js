@@ -6,9 +6,10 @@ export default class Movie extends LightningElement {
 
 handleMovieClickShowModal() {
     const modal = this.template.querySelector("c-modal-Watch-Movie");
-    modal.show(this.movie);
-  
+    modal.show(this.movie); 
 }
+
+
 
 }
 

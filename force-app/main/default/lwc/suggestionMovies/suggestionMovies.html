@@ -5,6 +5,7 @@
   @last modified on  : 07-08-2022
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
+<!--
 <template>
     <div class="slds-text-align_center slds-m-around_x-small">
     <lightning-card>
@@ -20,4 +21,80 @@
         </div>
     </lightning-card>
 </div>
+</template>
+-->
+
+<!--
+<template>
+    <div class="slds-text-align_center slds-m-around_x-small">
+    <lightning-card>
+        <div class="scroll-holder swiper-container">        
+        <lightning-badge label="MOVIES YOU MAY LIKE" icon-name="custom:custom1"></lightning-badge>
+        <div class="scroll-tray swiper-wrapper">
+            <template for:each={Movies.data} for:item="movie">
+                <div key={movie.Id} class="carouselImage swiper-slide" style="background-size:cover;">
+                <c-movie
+                    class="slds-show slds-is-relative"
+                    movie={movie}
+                ></c-movie>
+            </div>
+            </template>
+        </div>
+-->
+<!-- Next and previous buttons -->
+<!--
+  <a class="prev" onclick={prevSlides}>&#10094;</a>
+  <a class="next" onclick={nextSlides}>&#10095;</a>
+        </div>
+    </lightning-card>
+</div>
+</template>
+-->
+
+<template>
+    <div class="slds-text-align_center slds-m-around_x-small">
+        <lightning-card>
+            <lightning-badge label="MOVIES YOU MAY LIKE" icon-name="custom:custom1"></lightning-badge>
+            <div class="wrapper">
+                <section id="section1">
+                    <a href="#section2" class="arrow__btn">‹</a>
+                
+                    <template for:each={firstSectionMovies} for:item="movie">
+                        <div class="item" key={movie.Id} >
+
+                        <c-movie
+                            class="slds-show slds-is-relative"
+                            movie={movie}
+                        ></c-movie>
+                        
+                        </div>
+                    </template>
+                    
+                    <a href="#section2" class="arrow__btn">›</a>
+                </section>
+
+
+
+                <section id="section2">
+                    <a href="#section1" class="arrow__btn">‹</a>
+                    
+                    <template for:each={secondSectionMovies} for:item="movie">
+                        <div class="item" key={movie.Id} >
+                        <c-movie
+                            class="slds-show slds-is-relative"
+                            movie={movie}
+                        ></c-movie>
+                        </div>
+                    </template>
+                    
+                    
+                    
+                    <a href="#section1" class="arrow__btn">›</a>
+                </section>
+                
+                
+            </div>
+
+        </lightning-card>
+    </div>
 </template>

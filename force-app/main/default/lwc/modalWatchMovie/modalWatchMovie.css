@@ -54,3 +54,8 @@ h1 {
   font-size:30px;
   text-decoration: underline;
 }
+
+img {
+  width: 300px;
+  height: 440px;
+}
