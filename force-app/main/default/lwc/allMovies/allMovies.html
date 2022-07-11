@@ -2,25 +2,44 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 07-08-2022
+  @last modified on  : 07-11-2022
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
     <lightning-card>
         <lightning-layout multiple-rows="true">
-           
                 <lightning-layout-item size = "12" margin = "around-small">
                 <div class="slds-scrollable_x container">
-                    <template for:each={movies.data} for:item="movie">
+                    <div class="mcenter">
+                    <template for:each={moviesL} for:item="movie">
                         <c-movie
                             class="slds-show slds-is-relative"
                             key={movie.Id}
                             movie={movie}
                         ></c-movie>
                     </template>
-                    
                 </div>
-                <button onclick={handleNextPage}>Next Page</button>
+                </div>
+                <div class="slds-align_absolute-center">
+                    <div class="slds-p-right_xx-small">
+                        <lightning-button label="Prev"
+                        disabled={isPrev} onclick={handlePagePrevAction}
+                                            variant="brand"
+                                            icon-name="utility:back"
+                                            name="prev"></lightning-button>
+                    </div>
+                    <span class="slds-badge slds-badge_lightest">
+                        {recordStart}-{recordEnd}
+                    </span>
+                    <div class="slds-p-left_xx-small">
+                        <lightning-button label="Next"
+                        disabled={isNext} onclick={handlePageNextAction}
+                                            variant="brand"
+                                            icon-name="utility:forward"
+                                            icon-position="right"
+                                            name="next"></lightning-button>
+                    </div>
+                </div>
                 </lightning-layout-item>
             
             </lightning-layout>

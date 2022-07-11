@@ -8,7 +8,22 @@ export default class GenreCombobox extends LightningElement {
     @track data = [];
     @api value;
     @api default;
+    @track recordEnd = 0;
+    @track recordStart = 0;
+    @track pageNumber = 1;
+    @track totalRecords = 0;
+    @track totalChildRecords = 0;
+    @track totalYoungRecords = 0;
+    @track totalAdultRecords = 0;
+    @track totalPages = 0;
+    @track loaderSpinner = false;
+    @track error = null;
+    @track pageSize = 10;
+    @track isPrev = true;
+    @track isNext = true;
+    @track moviesL = [];
     @wire(getMovieGenres)
+
      wiredGenre({error, data}){
         if(data){
             var elements = [];
@@ -29,19 +44,17 @@ export default class GenreCombobox extends LightningElement {
      get options(){
         return this.genreList;
      } 
+   
      handleChange(event){
         this.value = event.detail.value;
-        getMovies({categoryId: this.value}).then(result =>{
+        getMovies({categoryId: this.value, pageSize: this.pageSize, pageNumber: this.pageNumber}).then(result =>{
             this.data = result;
-            console.log('This is the id: '+this.value);    
+            console.log('This is the id: '+this.value);              
         })
         .catch(error => {
             console.error("Error trying to see this category" + error);
         });
      }
-
-
-
 
 
     }

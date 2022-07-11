@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 07-08-2022
+ * @last modified on  : 07-11-2022
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class TopMoviesUser {
@@ -93,26 +93,26 @@ public with sharing class TopMoviesUser {
 
 
     //FOR ALL MOVIES
-    public static List<Movie__c> getAllChildMovies(){
+    public static List<Movie__c> getAllChildMovies(Integer pagesize, Integer offset){
         List<Movie__c> childresult = new List<Movie__c>();
         String age = UserInfoController.getUserContactAge();
         List<Movie__c> childMovies = new List<Movie__c>();
         
         if(Integer.valueOf(age) <= 13){
-            childMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Rating__c = 'Rated G' OR Rating__c = 'Rated PG']);
+            childMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Rating__c = 'Rated G' OR Rating__c = 'Rated PG' LIMIT :pageSize OFFSET :offset]);
             childresult.addAll(childMovies);
         }
        
         return childresult;
     }
 
-    public static List<Movie__c> getAllYoungMovies(){
+    public static List<Movie__c> getAllYoungMovies(Integer pagesize, Integer offset){
         List<Movie__c> youngresult = new List<Movie__c>();
         String youngAge = UserInfoController.getUserContactAge();
         List<Movie__c> youngMovies = new List<Movie__c>();
 
         If(Integer.valueOf(youngAge) <= 30 ){
-            youngMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE  Rating__c = 'Rated PG-13' OR (Rating__c = 'Rated G' OR Rating__c = 'Rated PG') LIMIT 12]);
+            youngMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE  Rating__c = 'Rated PG-13' OR (Rating__c = 'Rated G' OR Rating__c = 'Rated PG') LIMIT :pageSize OFFSET :offset]);
             youngresult.addAll(youngMovies);
         }
 
@@ -120,13 +120,13 @@ public with sharing class TopMoviesUser {
 
     }
 
-    public static List<Movie__c> getAllAdultMovies(){
+    public static List<Movie__c> getAllAdultMovies(Integer pagesize, Integer offset){
         List<Movie__c> adultresult = new List<Movie__c>();
         String adultAge = UserInfoController.getUserContactAge();
         List<Movie__c> adultMovies = new List<Movie__c>();
 
         If(Integer.valueOf(adultAge) > 30){
-            adultMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c LIMIT 12]);
+            adultMovies.addAll([SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c LIMIT :pageSize OFFSET :offset]);
             adultresult.addAll(adultMovies);
         }
 
