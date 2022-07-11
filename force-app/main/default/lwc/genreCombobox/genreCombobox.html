@@ -21,6 +21,7 @@
   </lightning-combobox>
 </div>
 <div class="slds-scrollable_x container">
+  <div class="mcenter">
   <template for:each={data} for:item="movie">
       <c-movie
           class="slds-show slds-is-relative"
@@ -28,6 +29,7 @@
           movie={movie}
       ></c-movie>
   </template>
+</div>
 </div>
 <template if:false={value}>
   <c-all-movies></c-all-movies>

@@ -8,3 +8,11 @@
 :host {
     --sds-c-card-color-background: #D5E0F4;
 }
+
+.mcenter {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    }
