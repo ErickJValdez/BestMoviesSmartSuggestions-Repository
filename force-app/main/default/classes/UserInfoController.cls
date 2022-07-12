@@ -16,8 +16,6 @@ public with sharing class UserInfoController{
         } else {
             return '0038c00002oSEkzAAG'; // Sys admin related contact for testing purpose!
         }
-
-       
     }
 
     public static String getUserContactAge(){
@@ -26,8 +24,8 @@ public with sharing class UserInfoController{
         Contact edad;
 
         if (String.isNotBlank(conId)){
-            edad = Database.query('SELECT Age__C FROM Contact WHERE Id =:conId LIMIT 1');
-        }
+                edad = [SELECT Age__C FROM Contact WHERE Id =:conId LIMIT 1];
+       }
 
         return String.valueOf(edad.Age__C);
     }

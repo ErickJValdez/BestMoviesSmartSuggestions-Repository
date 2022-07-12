@@ -1,5 +1,16 @@
 <template>
-    <lightning-card title="Trending Movies" >
-        
+    <div class="slds-text-align_center slds-m-around_x-small">
+    <lightning-card>
+        <lightning-badge class="slds-align_relative-center" style="height:2rem" label="TOP 10 MOVIES"  icon-name="custom:custom11"></lightning-badge>
+        <div class="slds-scrollable_x container">
+            <template for:each={movie__c.data} for:item="movie">
+                <c-movie
+                    class="slds-show slds-is-relative"
+                    key={movie.Id}
+                    movie={movie}
+                ></c-movie>
+            </template>
+        </div>
     </lightning-card>
+</div>
 </template>
