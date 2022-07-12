@@ -83,9 +83,3 @@ export default class GenreCombobox extends LightningElement {
             console.log('This is the else adventure');
         }
     }*/
-    
-    
-
-
-
-

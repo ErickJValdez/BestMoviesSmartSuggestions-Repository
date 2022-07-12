@@ -1,4 +1,3 @@
-
 public with sharing class SuggestionsController {
     
     static string contactId = UserInfoController.getUserContactId();

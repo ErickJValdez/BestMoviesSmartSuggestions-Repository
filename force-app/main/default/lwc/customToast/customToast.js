@@ -35,4 +35,3 @@ export default class CustomToast extends LightningElement {
         return 'slds-notify slds-notify_toast slds-theme_' + this.type;
     }
 }
- 

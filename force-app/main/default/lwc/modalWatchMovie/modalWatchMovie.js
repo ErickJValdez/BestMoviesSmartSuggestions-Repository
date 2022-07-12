@@ -205,4 +205,3 @@ export default class ModalWatchMovie extends LightningElement {
 }
 
 }
-
