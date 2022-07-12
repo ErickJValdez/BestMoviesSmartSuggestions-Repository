@@ -26,14 +26,16 @@ export default class ModalWatchMovie extends LightningElement {
 
     allowRank=true;
 
+    rankingNewValues=0; // Added for the star process
+
     @api show(evt) {
       this.showModalWatchMovie = true;
       this.movieValue=evt; 
-      this.checkIfRanked();
       this.checkIfWatched();
+      this.checkIfRanked();
       this.checkIfMovieLiked();
-
     }
+
 
    checkIfRanked(){
 
@@ -41,12 +43,39 @@ export default class ModalWatchMovie extends LightningElement {
       result =>{ 
         if (result) {
           this.rankingValues = result;
-      }
+
+          this.rankingNewValues = this.rankingValues.Rank__c;
+
+        }
     }).catch(error => {
       console.log('Check If rank by user '+ error);
     });
       
    }
+
+   rating(event) {
+
+    this.modifyStars();
+
+
+    this.rankingNewValues=event.target.value;
+   
+
+
+  }
+
+
+
+  modifyStars(){
+
+    let radioInput= this.template.querySelectorAll('input');
+
+      radioInput.forEach( inputField => {
+        if(!(inputField.checked)) {
+          inputField.className="star";
+        }
+      });
+  }
 
 
   
@@ -58,6 +87,7 @@ export default class ModalWatchMovie extends LightningElement {
           this.showRankSection = result;
        } else {
         this.showRankSection = true;
+
       }
     }).catch(error => {
       console.log('Check If movie watched '+ error);
@@ -112,16 +142,17 @@ export default class ModalWatchMovie extends LightningElement {
 
   handleSubmitRanking(){
 
-    const inputRanking = this.template.querySelector("lightning-input");
+    //const inputRanking = this.template.querySelector("lightning-input");
 
-    console.log('Clicked on submit buttom, the input data is: '+ inputRanking.value);
+    //console.log('Clicked on submit buttom, the input data is: '+ inputRanking.value);
    
     if(this.rankingValues){
       console.log('Movie already ranked let\'s update it');
-      updateRankMovie({rankId: this.rankingValues.Id, rankNumber: inputRanking.value}).then(
+      updateRankMovie({rankId: this.rankingValues.Id, rankNumber: this.rankingNewValues}).then(
         result =>{ if (result) {
           console.log('Rank updated:'+ result);
           this.showToastUpdate();
+          this.checkIfRanked();
         }
       }).catch(error => {
           console.error("Error trying to update the rank record: " + error);
@@ -132,7 +163,7 @@ export default class ModalWatchMovie extends LightningElement {
 
       console.log('Movie hasn\'s been ranked let\'s rank it');
 
-      rankMovie({movieId: this.movieValue.Id, rankNumber: inputRanking.value}).then(
+      rankMovie({movieId: this.movieValue.Id, rankNumber: this.rankingNewValues}).then(
         result =>{ if (result) {
           console.log('Rank Submitted:'+ result);
           this.showToastRanked();
@@ -141,7 +172,6 @@ export default class ModalWatchMovie extends LightningElement {
       }).catch(error => {
           console.error("Error trying to submit the rank record: " + error);
         });
-
 
   }
 
@@ -203,5 +233,82 @@ export default class ModalWatchMovie extends LightningElement {
     return
   }
 }
+renderedCallback(){
+  this.checkRank();
+}
+
+checkRank(){
+
+  if(this.showModalWatchMovie){
+  if(this.rankingValues){
+    if(this.rankingValues.Rank__c){
+          
+      if(this.rankingValues.Rank__c >= 5){
+          const button=   this.template.querySelector(".fiveStars");
+          button.className+=" chose";
+  
+      } else if(this.rankingValues.Rank__c >=4){
+  
+          const button=   this.template.querySelector(".fourStars");
+          button.className+=" chose";
+  
+  
+      } else if(this.rankingValues.Rank__c >=3){
+  
+          const button=   this.template.querySelector(".threeStars");
+          button.className+=" chose";
+  
+  
+      } else if(this.rankingValues.Rank__c >=2){
+          const button=   this.template.querySelector(".twoStars");
+          button.className+=" chose";
+  
+  
+      } else if(this.rankingValues.Rank__c >=1){
+          
+          const button=   this.template.querySelector(".oneStar");
+          button.className+=" chose";
+  
+      }
+  }
+}
+}
+}
+
+/*checkGlobalRank(){
+
+  if(this.movieValue.Ranking__c!= null){
+    if(this.movieValue.Ranking__c){
+          
+      if(this.movieValue.Ranking__c>= 5){
+          const button=   this.template.querySelector(".CfiveStars");
+          button.className+=" chose";
+  
+      } else if(this.movieValue.Ranking__c>=4){
+  
+          const button=   this.template.querySelector(".CfourStars");
+          button.className+=" chose";
+  
+  
+      } else if(this.movieValue.Ranking__c>=3){
+  
+          const button=   this.template.querySelector(".CthreeStars");
+          button.className+=" chose";
+  
+  
+      } else if(this.movieValue.Ranking__c>=2){
+          const button=   this.template.querySelector(".CtwoStars");
+          button.className+=" chose";
+  
+  
+      } else if(this.movieValue.Ranking__c>=1){
+          
+          const button=   this.template.querySelector(".ConeStar");
+          button.className+=" chose";
+  
+      }
+  }
+}
+}*/
 
 }

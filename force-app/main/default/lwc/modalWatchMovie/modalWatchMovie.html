@@ -51,8 +51,25 @@
             <div class='slds-m-top_small'>
               <div class="slds-p-around_medium lgc-bg">
 
-              <lightning-input type="number" label="Leave your ranking" placeholder="Leave a number from 1 to 5" min="1" max="5" value={Rank}></lightning-input>
-             
+              <!--<lightning-input type="number" label="Leave your ranking" placeholder="Leave a number from 1 to 5" min="1" max="5" value={Rank}></lightning-input>
+              -->
+
+             <div class="rate slds-align_absolute-center">
+                <div class="rate">
+                    <input type="radio" id="star25" name={movieValue.Name}  class="star fiveStars" value=5  onchange={rating}/>
+                    <label for="star25" title="text">5 stars</label>
+                    <input type="radio" id="star24"  name={movieValue.Name} class="star fourStars" value=4  onchange={rating}/>
+                    <label for="star24" title="text" >4 stars</label>
+                    <input type="radio" id="star23" name={movieValue.Name}  class="star threeStars" value=3  onchange={rating}/>
+                    <label for="star23" title="text"   >3 stars</label>
+                    <input type="radio" id="star22" name={movieValue.Name}  class="star twoStars"  value=2   onchange={rating}/>
+                    <label for="star22" title="text">2 stars</label>
+                    <input type="radio" id="star21" name={movieValue.Name} class="star oneStar" value=1  onchange={rating}/>
+                    <label for="star21" title="text">1 star</label>
+                </div>
+            </div>
+          
+
              <lightning-input type="checkbox" label="Watched" name="input3" checked disabled></lightning-input>
               </div>
 
@@ -65,8 +82,9 @@
             <h1 class="slds-text-heading_large slds-text-title_caps">{movieValue.Name}</h1>
             <p class="slds-text-body_regular">Rating: {movieValue.Rating__c}</p>
             <p class="slds-text-body_regular">Score: {movieValue.Global_Score__c}</p>
+
             <p class="slds-text-body_regular">Ranking: {movieValue.Ranking__c}</p>
-            <p class="slds-text-body_regular">Movie Genre(s): {movieGenres}</p>
+                       <p class="slds-text-body_regular">Movie Genre(s): {movieGenres}</p>
             <p class="slds-text-body_regular">{movieValue.Full_Summary__c}</p>
           </div>
 
