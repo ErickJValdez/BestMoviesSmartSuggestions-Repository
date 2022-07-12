@@ -17,9 +17,7 @@ public class GenreControllerTest {
                           LocaleSidKey='en_US', ProfileId = p.Id,
                           TimeZoneSidKey='America/Los_Angeles', Birthday__c =Date.valueOf('1985-4-24'), ContactId= c.Id,
                           UserName=uniqueUserName);  //Adult User
-    
-        
-        
+
         System.runAs(u) {
             // The following code runs as user 'u'           
            System.debug(GenreController.getMovieGenres());            

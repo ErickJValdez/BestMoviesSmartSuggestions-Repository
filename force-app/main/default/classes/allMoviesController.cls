@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 07-11-2022
+ * @last modified on  : 07-12-2022
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class allMoviesController {
@@ -24,9 +24,6 @@ public with sharing class allMoviesController {
         Integer offset = (pageNumber - 1) * pageSize;
 
         Integer recordEnd = pageSize * pageNumber;
-        //Integer totalChildRecords = [SELECT COUNT() FROM Movie__c WHERE Rating__c = 'Rated G' OR Rating__c = 'Rated PG'];
-        //Integer totalYoungRecords = [SELECT COUNT() FROM Movie__c WHERE Rating__c = 'Rated PG-13' OR (Rating__c = 'Rated G' OR Rating__c = 'Rated PG')];
-        //Integer totalAdultRecords = [SELECT COUNT() FROM Movie__c];
         Integer totalRecords = [SELECT COUNT() FROM Movie__c];
 
 
@@ -60,7 +57,7 @@ public with sharing class allMoviesController {
                 jsonObjItm = JSON.serialize(movObj);
                 return jsonObjItm;
             }
-            else if(Integer.valueOf(age) > 30){
+            else{
                 moviesItemWrapper movObj = new moviesItemWrapper();
                 movObj.pageNumber = pageNumber;
                 movObj.pageSize = pageSize;
@@ -71,20 +68,7 @@ public with sharing class allMoviesController {
                 jsonObjItm = JSON.serialize(movObj);
                 return jsonObjItm;
             }
-            else{
-                moviesItemWrapper movObj = new moviesItemWrapper();
-                movObj.pageNumber = pageNumber;
-                movObj.pageSize = pageSize;
-                movObj.recordStart = offset + 1;
-                movObj.recordEnd = totalRecords >= recordEnd ? recordEnd : totalRecords;
-                movObj.totalRecords = totalRecords;
-                movObj.moviesL = movies;
-                jsonObjItm = JSON.serialize(movObj);
-                return jsonObjItm;
-            }
       
-
-    
         
     }
 
