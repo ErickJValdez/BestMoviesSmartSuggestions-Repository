@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 06-24-2022
+ * @last modified on  : 07-12-2022
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public class TopController {
@@ -13,7 +13,7 @@ public class TopController {
         List<Movie__c> childresult = TopMoviesUser.getChildMovies();
         List<Movie__c> youngresult = TopMoviesUser.getYoungMovies();
         List<Movie__c> adulresult = TopMoviesUser.getAdultMovies();
-        List<Movie__c> movies = TopMoviesUser.getDefaultMovies();
+        //List<Movie__c> movies = TopMoviesUser.getDefaultMovies();
         String age = UserInfoController.getUserContactAge();
         if(Integer.valueOf(age) <= 13){
             return childresult;
@@ -21,11 +21,8 @@ public class TopController {
         else if(Integer.valueOf(age) <= 30){
             return youngresult;
         }
-        else if(Integer.valueOf(age) > 30){
-            return adulresult;
-        }
         else{
-            return movies;
+            return adulresult;
         }
     }
 

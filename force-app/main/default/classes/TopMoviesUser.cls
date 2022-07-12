@@ -2,12 +2,12 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 07-11-2022
+ * @last modified on  : 07-12-2022
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class TopMoviesUser {
 
-    public static List<Movie__c> getDefaultMovies(){
+    /*public static List<Movie__c> getDefaultMovies(){
         List<Movie__c> movies = [SELECT Id, Image_URL__c, Name, Ranking__c, Global_Score__c, Rating__c, Full_Summary__c FROM Movie__c WHERE Ranking__c > 3.8 order by Ranking__c DESC LIMIT 10];
         Integer listsize = movies.size();
         List<Movie__c> result = new List<Movie__c>();
@@ -20,7 +20,7 @@ public with sharing class TopMoviesUser {
         }
         return result;
 
-    }
+    }*/
 
     //FOR THE TOP 10
 

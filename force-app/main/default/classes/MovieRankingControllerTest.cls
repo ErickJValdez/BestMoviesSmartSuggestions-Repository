@@ -29,7 +29,6 @@ public with sharing class MovieRankingControllerTest {
             
             System.assertEquals(False, MovieRankingController.checkIfWatchedMovie(m.Id));
 
-            
             System.debug(MovieRankingController.createMovieWatchRecord(m.Id)); //To test all functionality
             
             
