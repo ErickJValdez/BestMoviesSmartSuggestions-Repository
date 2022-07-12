@@ -14,10 +14,30 @@
                 <!-- <p class='slds-align_absolute-center'>{movie.Name}</p>-->
                  <p>{movie.Rating__c}</p>
                  <template if:true={movie.Ranking__c}>
-                 <p>Ranking: {movie.Ranking__c}</p>
+                 <!-- <p>Ranking: {movie.Ranking__c}</p>-->
+
+                 <div class="rate slds-align_absolute-center">
+                  <div class="rate">
+                      <input type="radio" id="star25" name={movie.Name}  class="fiveStars" value="5"/>
+                      <label for="star25" title="text">5 stars</label>
+                      <input type="radio" id="star24"  name={movie.Name} class="fourStars" value="4"/>
+                      <label for="star24" title="text" >4 stars</label>
+                      <input type="radio" id="star23" name={movie.Name}  class="threeStars" value="3"/>
+                      <label for="star23" title="text"   >3 stars</label>
+                      <input type="radio" id="star22" name={movie.Name}  class="twoStars"  value="2"/>
+                      <label for="star22" title="text">2 stars</label>
+                      <input type="radio" id="star21" name={movie.Name} class="oneStars" value="1" />
+                      <label for="star21" title="text">1 star</label>
+                  </div>
+              </div>
+
                  </template>
+
                  <template if:true={movie.Global_Score__c}>
+                <div class="static">
+                 
                  <p>Global Score: {movie.Global_Score__c}</p>
+                </div>
                  </template>
                 </a>
             </lightning-layout-item>

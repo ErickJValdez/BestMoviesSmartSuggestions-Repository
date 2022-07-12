@@ -39,7 +39,7 @@
     display: grid;
     grid-template-columns: repeat(5, auto);
     margin: 20px 0;
-    height: 340px;
+    height: 390px;
    }
    .wrapper section .item {
     padding: 0 2px;
