@@ -30,4 +30,3 @@ public with sharing class MovieByCategory {
         return movieList;
     }
 }
-    

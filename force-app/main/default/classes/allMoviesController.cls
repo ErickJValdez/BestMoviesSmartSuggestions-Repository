@@ -24,6 +24,9 @@ public with sharing class allMoviesController {
         Integer offset = (pageNumber - 1) * pageSize;
 
         Integer recordEnd = pageSize * pageNumber;
+        //Integer totalChildRecords = [SELECT COUNT() FROM Movie__c WHERE Rating__c = 'Rated G' OR Rating__c = 'Rated PG'];
+        //Integer totalYoungRecords = [SELECT COUNT() FROM Movie__c WHERE Rating__c = 'Rated PG-13' OR (Rating__c = 'Rated G' OR Rating__c = 'Rated PG')];
+        //Integer totalAdultRecords = [SELECT COUNT() FROM Movie__c];
         Integer totalRecords = [SELECT COUNT() FROM Movie__c];
 
 
