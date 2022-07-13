@@ -8,7 +8,7 @@
 public with sharing class GenreController {
     @AuraEnabled(cacheable=true)
     public static List<Movie_Genre__c> getMovieGenres(){
-        List<Movie_Genre__c> genreList = [SELECT Name, Id FROM Movie_Genre__c];
+        List<Movie_Genre__c> genreList = [SELECT Name, Id FROM Movie_Genre__c ORDER BY Name];
         return genreList;
     }
 }
