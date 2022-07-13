@@ -1,16 +1,47 @@
 <template>
     <div class="slds-text-align_center slds-m-around_x-small">
-    <lightning-card>
-        <lightning-badge class="slds-align_relative-center" style="height:2rem" label="TOP 10 MOVIES"  icon-name="custom:custom11"></lightning-badge>
-        <div class="slds-scrollable_x container">
-            <template for:each={movie__c.data} for:item="movie">
-                <c-movie
-                    class="slds-show slds-is-relative"
-                    key={movie.Id}
-                    movie={movie}
-                ></c-movie>
-            </template>
-        </div>
-    </lightning-card>
-</div>
+        <lightning-card>
+            <lightning-badge label="TRENDING MOVIES" icon-name="custom:custom11"></lightning-badge>
+            <div class="wrapper">
+                <section id="section1">
+                    <a href="#section2" class="arrow__btn">‹</a>
+                
+                    <template for:each={firstSectionMovies} for:item="movie">
+                        <div class="item" key={movie.Id} >
+
+                        <c-movie
+                            class="slds-show slds-is-relative"
+                            movie={movie}
+                        ></c-movie>
+                        
+                        </div>
+                    </template>
+                    
+                    <a href="#section2" class="arrow__btn">›</a>
+                </section>
+
+
+
+                <section id="section2">
+                    <a href="#section1" class="arrow__btn">‹</a>
+                    
+                    <template for:each={secondSectionMovies} for:item="movie">
+                        <div class="item" key={movie.Id} >
+                        <c-movie
+                            class="slds-show slds-is-relative"
+                            movie={movie}
+                        ></c-movie>
+                        </div>
+                    </template>
+                    
+                    
+                    
+                    <a href="#section1" class="arrow__btn">›</a>
+                </section>
+                
+                
+            </div>
+
+        </lightning-card>
+    </div>
 </template>
