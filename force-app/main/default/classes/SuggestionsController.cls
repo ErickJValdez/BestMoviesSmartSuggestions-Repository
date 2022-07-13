@@ -107,7 +107,7 @@ public with sharing class SuggestionsController {
         String queryStringUserMovieSugg = SuggestionsController.getUserMoviesRateSuggestion();
 
         List<Category_Movie__c> preferredMoviesListOfUser = Database.query(
-            'SELECT Movie__c FROM Category_Movie__c WHERE Movie_Genre__r.Id IN :preferredGenre '+queryStringUserMovieSugg+ ' ORDER BY Movie__r.Ranking__c DESC NULLS LAST LIMIT 10'
+            'SELECT Movie__c FROM Category_Movie__c WHERE Movie_Genre__r.Id IN :preferredGenre '+queryStringUserMovieSugg+ ' ORDER BY Movie__r.Ranking__c DESC NULLS LAST, Movie__r.Global_Score__c DESC NULLS LAST LIMIT 10'
         );
 
         Set<Id> moviesId = new Set<Id>();
@@ -128,7 +128,7 @@ public with sharing class SuggestionsController {
         String queryStringUserTypeMovies = SuggestionsController.getUserMoviesRate();
         
         List<Movie__c> moviesList = Database.query(
-            'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE ID IN: moviesIds ORDER BY Ranking__c DESC NULLS LAST LIMIT 10'
+            'SELECT Id, Name, Rating__c, Image_URL__c, Ranking__c, Global_Score__c, Trailer_URL__c, Short_Summary__c, Full_Summary__c FROM Movie__c WHERE ID IN: moviesIds ORDER BY Ranking__c DESC NULLS LAST, Global_Score__c DESC NULLS LAST LIMIT 10'
             );
         
         Integer lists = moviesList.size();
