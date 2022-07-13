@@ -42,8 +42,6 @@ public with sharing class allMoviesController {
                 movObj.pageNumber = pageNumber;
                 movObj.pageSize = pageSize;
                 movObj.recordStart = offset + 1;
-                //movObj.recordEnd = totalChildRecords >= recordEnd ? recordEnd : totalChildRecords;
-                //movObj.totalChildRecords = totalChildRecords;
                 movObj.recordEnd = totalRecords >= recordEnd ? recordEnd : totalRecords;
                 movObj.totalRecords = totalRecords;
                 movObj.moviesL = childresult;
@@ -56,8 +54,6 @@ public with sharing class allMoviesController {
                 movObj.pageNumber = pageNumber;
                 movObj.pageSize = pageSize;
                 movObj.recordStart = offset + 1;
-               // movObj.recordEnd = totalYoungRecords >= recordEnd ? recordEnd : totalYoungRecords;
-                //movObj.totalYoungRecords = totalYoungRecords;
                 movObj.recordEnd = totalRecords >= recordEnd ? recordEnd : totalRecords;
                 movObj.totalRecords = totalRecords;
                 movObj.moviesL = youngresult;
@@ -69,8 +65,6 @@ public with sharing class allMoviesController {
                 movObj.pageNumber = pageNumber;
                 movObj.pageSize = pageSize;
                 movObj.recordStart = offset + 1;
-                //movObj.recordEnd = totalAdultRecords >= recordEnd ? recordEnd : totalAdultRecords;
-                //movObj.totalAdultRecords = totalAdultRecords;
                 movObj.recordEnd = totalRecords >= recordEnd ? recordEnd : totalRecords;
                 movObj.totalRecords = totalRecords;
                 movObj.moviesL = adulresult;
@@ -82,8 +76,6 @@ public with sharing class allMoviesController {
                 movObj.pageNumber = pageNumber;
                 movObj.pageSize = pageSize;
                 movObj.recordStart = offset + 1;
-                //movObj.recordEnd = totalAdultRecords >= recordEnd ? recordEnd : totalAdultRecords;
-                //movObj.totalAdultRecords = totalAdultRecords;
                 movObj.recordEnd = totalRecords >= recordEnd ? recordEnd : totalRecords;
                 movObj.totalRecords = totalRecords;
                 movObj.moviesL = movies;
@@ -91,12 +83,8 @@ public with sharing class allMoviesController {
                 return jsonObjItm;
             }
       
-        //jsonObjItm = JSON.serialize(movObj);
-        //return jsonObjItm;
 
-     
-
-        
+    
         
     }
 
