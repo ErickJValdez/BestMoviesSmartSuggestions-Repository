@@ -1,27 +1,11 @@
-import { LightningElement, wire, api, track} from 'lwc';
+import { LightningElement, wire} from 'lwc';
 import getMovieGenres from '@salesforce/apex/GenreController.getMovieGenres';
 import getMovies from '@salesforce/apex/MovieByCategory.getMovies';
 
 
 export default class GenreCombobox extends LightningElement {
     genreList;
-    @track data = [];
-    @api value;
-    @api default;
-    @track recordEnd = 0;
-    @track recordStart = 0;
-    @track pageNumber = 1;
-    @track totalRecords = 0;
-    @track totalChildRecords = 0;
-    @track totalYoungRecords = 0;
-    @track totalAdultRecords = 0;
-    @track totalPages = 0;
-    @track loaderSpinner = false;
-    @track error = null;
-    @track pageSize = 10;
-    @track isPrev = true;
-    @track isNext = true;
-    @track moviesL = [];
+
     @wire(getMovieGenres)
 
      wiredGenre({error, data}){

@@ -2,6 +2,7 @@ import { LightningElement, wire } from 'lwc';
 import getTrendMovies from '@salesforce/apex/TrendingController.getTrendMovies';
 
 export default class TrendingMovies extends LightningElement {
+
     firstSectionMovies;
     secondSectionMovies;
 
@@ -13,10 +14,9 @@ export default class TrendingMovies extends LightningElement {
             let second=[];
             if (result) {
                 for (let i = 0; i < result.length; i++) {
-                    if(i<5){
-                        first.push(result[i]);
-                    } 
-                    else if (i>=5){
+                if(i<5){
+                    first.push(result[i]);
+                } else if (i>=5){
                     second.push(result[i]);
                 }
             }
@@ -25,9 +25,10 @@ export default class TrendingMovies extends LightningElement {
             this.secondSectionMovies=second;
             }
         }).catch(error => {
-        console.log(error);
+            console.log(error);
         });
     
-        }
-    //@wire(getDefaultMovies) movies;
+    }
+
+   // @wire(getTrendMovies) movies;
 }

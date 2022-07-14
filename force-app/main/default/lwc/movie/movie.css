@@ -10,6 +10,9 @@ img {
 img:hover {
     margin: 5px 40px;
 
+<<<<<<< HEAD
+   }
+=======
    }
 
    .rate {
@@ -51,3 +54,4 @@ div.static {
 .rate> .selected~label{
     color: #ffc700;
 }
+>>>>>>> c87326ec0e2b1fe23be0c9fa9762904b9af35167
