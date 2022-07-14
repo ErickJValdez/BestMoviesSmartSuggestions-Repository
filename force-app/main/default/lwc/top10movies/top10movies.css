@@ -39,8 +39,8 @@ template  html{
     position: relative;
     display: grid;
     grid-template-columns: repeat(5, auto);
-    margin: 20px 0;
-    height: 355px;
+    margin: 50px 0;
+    height: 400px;
    }
    .wrapper section .item {
     padding: 0 2px;
